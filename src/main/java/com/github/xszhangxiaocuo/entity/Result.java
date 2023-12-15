@@ -2,6 +2,8 @@ package com.github.xszhangxiaocuo.entity;
 
 import com.alibaba.fastjson2.JSONObject;
 import com.alibaba.fastjson2.JSONWriter;
+import com.github.xszhangxiaocuo.entity.Err.ErrCode;
+import com.github.xszhangxiaocuo.entity.Err.ErrMessage;
 
 public class Result<T> {
     private int code;
@@ -9,9 +11,9 @@ public class Result<T> {
     private String message;
 
     public void success(T data){
-        this.code=0;
+        this.code= ErrCode.OK.getCode();
         this.data=data;
-        this.message="OK";
+        this.message= ErrMessage.getMsg(code);
     }
 
     public void failure(int code,String message){

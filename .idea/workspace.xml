@@ -9,32 +9,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66baf21f-4d2c-4584-9b4b-52be032badff" name="Changes" comment="项目初始化">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/entity/Result.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/entity/Token.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/entity/req/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/entity/resp/User/LoginVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/filter/Cros.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/servlet/Index.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/servlet/Login.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/JsonUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/utils/JwtUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/annotations-24.1.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/druid-1.2.9.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/fastjson2-2.0.43.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/jackson-annotations-2.16.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/jackson-core-2.16.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/jackson-databind-2.16.0.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/jjwt-api-0.12.3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/jjwt-impl-0.12.3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/jjwt-jackson-0.12.3.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/kotlin-reflect-2.0.0-Beta1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/kotlin-stdlib-2.0.0-Beta1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/kotlin-stdlib-jdk7-2.0.0-Beta1.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/lib/kotlin-stdlib-jdk8-2.0.0-Beta1.jar" afterDir="false" />
+    <list default="true" id="66baf21f-4d2c-4584-9b4b-52be032badff" name="Changes" comment="更改目录结构">
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/UserAuthDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/Err/ErrCode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/Err/ErrMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/Universal.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/UserAuth.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Register.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/DBUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/DruidUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/PropertiesUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/config/druid.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/86e65be6-7c6d-4560-b79e-3d88317cb177.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/86e65be6-7c6d-4560-b79e-3d88317cb177.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/86e65be6-7c6d-4560-b79e-3d88317cb177/storage_v2/_src_/schema/gvb.U5EBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/86e65be6-7c6d-4560-b79e-3d88317cb177/storage_v2/_src_/schema/gvb.U5EBAA.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/Result.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/LoginReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Login.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,9 +37,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Servlet" />
         <option value="Fileter" />
         <option value="Class" />
+        <option value="Servlet" />
       </list>
     </option>
   </component>
@@ -87,7 +80,7 @@
     "Downloaded.Files.Path.Enabled": "true",
     "Repository.Attach.Annotations": "false",
     "Repository.Attach.JavaDocs": "true",
-    "Repository.Attach.Sources": "true",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
@@ -97,11 +90,17 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Artifacts",
+    "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "MavenSettings",
     "vue.rearranger.settings.migration": "true"
+  },
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mysql",
+      "redis"
+    ]
   }
 }]]></component>
   <component name="RecentsManager">
@@ -110,7 +109,15 @@
       <recent name="$PROJECT_DIR$/src/main/webapp" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/config" />
+      <recent name="$PROJECT_DIR$/src/main/resources" />
       <recent name="$PROJECT_DIR$/src/main" />
+    </key>
+    <key name="ExtractSuperBase.RECENT_KEYS">
+      <recent name="com.github.xszhangxiaocuo.dao.UserDao" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.github.xszhangxiaocuo.utils" />
     </key>
   </component>
   <component name="RunManager">
@@ -119,7 +126,7 @@
       <deployment>
         <artifact name="blog:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/blog" />
+            <option name="CONTEXT_PATH" value="/blog/api" />
           </settings>
         </artifact>
       </deployment>
@@ -214,6 +221,7 @@
       <workItem from="1702000154344" duration="15029000" />
       <workItem from="1702104690040" duration="17260000" />
       <workItem from="1702456870889" duration="12357000" />
+      <workItem from="1702533566754" duration="36795000" />
     </task>
     <task id="LOCAL-00001" summary="项目初始化">
       <option name="closed" value="true" />
@@ -223,7 +231,23 @@
       <option name="project" value="LOCAL" />
       <updated>1702000517033</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="更改项目结构">
+      <option name="closed" value="true" />
+      <created>1702539111850</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1702539111850</updated>
+    </task>
+    <task id="LOCAL-00003" summary="更改目录结构">
+      <option name="closed" value="true" />
+      <created>1702541236236</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1702541236236</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -231,6 +255,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="项目初始化" />
-    <option name="LAST_COMMIT_MESSAGE" value="项目初始化" />
+    <MESSAGE value="更改项目结构" />
+    <MESSAGE value="更改目录结构" />
+    <option name="LAST_COMMIT_MESSAGE" value="更改目录结构" />
   </component>
 </project>
