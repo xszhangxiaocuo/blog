@@ -37,6 +37,7 @@ public class ErrMessage {
         codeMsg.put(ErrCode.LOGOUT.getCode(), "您已退出登录");
 
         codeMsg.put(ErrCode.ERROR_ART_NOT_EXIST.getCode(), "文章不存在");
+        codeMsg.put(ErrCode.ERROR_ART_IS_NULL.getCode(), "文章列表为空");
 
         codeMsg.put(ErrCode.ERROR_CATE_NAME_USED.getCode(), "操作失败，分类名已存在");
         codeMsg.put(ErrCode.ERROR_CATE_NOT_EXIST.getCode(), "操作失败，分类不存在");

@@ -42,6 +42,7 @@ public enum ErrCode {
      * code= 2000... 文章模块的错误
      */
     ERROR_ART_NOT_EXIST(2001),
+    ERROR_ART_IS_NULL(2002),
     /**
      * code= 3000... 分类模块的错误
      */
