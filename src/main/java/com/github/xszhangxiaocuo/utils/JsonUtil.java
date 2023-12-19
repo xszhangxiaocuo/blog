@@ -1,6 +1,7 @@
 package com.github.xszhangxiaocuo.utils;
 
 import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONArray;
 import com.alibaba.fastjson2.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
 
@@ -38,7 +40,7 @@ public class JsonUtil<T> {
     /**
     *将json数据写入响应
      */
-    public static void returnJSON(HttpServletResponse response,JSONObject data) {
+    public static void returnJSON(HttpServletResponse response,Object data) {
         try(PrintWriter out = response.getWriter()) {
             out.print(data.toString()); // 将JSON对象作为字符串写入响应
             out.flush(); // 清空输出流，确保所有数据都被发送
@@ -49,8 +51,14 @@ public class JsonUtil<T> {
     /**
     *将javabean转换为json
      */
-    public static JSONObject beanToJson(Object object){
-        return (JSONObject) JSON.toJSON(object);
+    public static Object beanToJson(Object object){
+        String json = JSON.toJSONString(object);
+        if (json.startsWith("[")) {
+            // 如果是数组，返回 JSONArray
+            return JSON.parseArray(json);
+        } else {
+            // 否则，返回 JSONObject
+            return JSON.parseObject(json);
+        }
     }
-
 }

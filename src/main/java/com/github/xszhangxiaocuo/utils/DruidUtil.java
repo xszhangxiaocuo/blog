@@ -11,23 +11,23 @@ import java.util.logging.Logger;
 
 public class DruidUtil {
     private static DataSource ds=null;
-    private static Connection conn = null;
 
     static Logger logger = Logger.getLogger(DruidUtil.class.getName());
     static{
         try {
-            logger.info("start read");
+            logger.info("开始连接数据库。。。");
             //读取数据库连接配置文件
             PropertiesUtil.loadFile("config/druid.properties");
 
             ds = DruidDataSourceFactory.createDataSource(PropertiesUtil.property);
+            logger.info("数据库连接成功！");
 
         }catch (Exception e){
             e.printStackTrace();
         }
     }
     public static Connection getConnection(){
-        conn = null;
+        Connection conn = null;
         try {
             conn = ds.getConnection();
         } catch (Exception e) {

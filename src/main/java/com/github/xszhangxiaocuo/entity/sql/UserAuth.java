@@ -3,42 +3,54 @@ package com.github.xszhangxiaocuo.entity.sql;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * 用户账户信息
+ * 用户账户信息，user_auth表
  */
 public class UserAuth extends Universal{
-    public String userInfoIdName = "user_info_id";
-    public String usernameName = "username";
-    public String passwordName = "password";
-    public String loginTypeName = "login_type";
-    public String ipAddressName = "ip_address";
-    public String ipSourceName = "ip_source";
-    public String lastLoginTimeName = "last_login_time";
+    //映射字段与字段名
+    private static final Map<Integer, Object> columnName = new HashMap<>();
 
-    private long userInfoId;
+    public static String userInfoIdName = "user_info_id";
+    public static String usernameName = "username";
+    public static String passwordName = "password";
+    public static String loginTypeName = "login_type";
+    public static String ipAddressName = "ip_addr";
+    public static String ipSourceName = "ip_source";
+    public static String lastLoginTimeName = "last_login_time";
+
+    @JsonProperty("user_info_id")
+    private int userInfoId;//用户信息ID
 
     @JsonProperty("username")
-    private String username;
+    private String username;//用户名
 
     @JsonProperty("password")
-    private String password;
+    private String password;//密码
 
     @JsonProperty("login_type")
-    private byte loginType;
+    private byte loginType;//登录类型
 
-    @JsonProperty("ip_address")
-    private String ipAddress;
+    @JsonProperty("ip_addr")
+    private String ipAddress;//登录IP地址
 
     @JsonProperty("ip_source")
-    private String ipSource;
+    private String ipSource;//IP来源
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.fff")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     @JsonProperty("last_login_time")
-    private Date lastLoginTime;
+    private Timestamp lastLoginTime;//上次登录时间
 
-    public long getUserInfoId() {
+    public UserAuth(){};
+
+    public UserAuth(Timestamp now){
+        setCreateTime(now);
+    };
+
+    public int getUserInfoId() {
         return userInfoId;
     }
 
@@ -62,11 +74,11 @@ public class UserAuth extends Universal{
         return ipSource;
     }
 
-    public Date getLastLoginTime() {
+    public Timestamp getLastLoginTime() {
         return lastLoginTime;
     }
 
-    public void setUserInfoId(long userInfoId) {
+    public void setUserInfoId(int userInfoId) {
         this.userInfoId = userInfoId;
     }
 
@@ -90,7 +102,7 @@ public class UserAuth extends Universal{
         this.ipSource = ipSource;
     }
 
-    public void setLastLoginTime(Date lastLoginTime) {
+    public void setLastLoginTime(Timestamp lastLoginTime) {
         this.lastLoginTime = lastLoginTime;
     }
 }

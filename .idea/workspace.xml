@@ -9,25 +9,47 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66baf21f-4d2c-4584-9b4b-52be032badff" name="Changes" comment="更改目录结构">
-      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/UserAuthDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/Err/ErrCode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/Err/ErrMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/Universal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/UserAuth.java" afterDir="false" />
+    <list default="true" id="66baf21f-4d2c-4584-9b4b-52be032badff" name="Changes" comment="完善登录，连接数据库">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/ArticleDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/UserInfoDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/BlogInfoReq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/admin/AdminArticlesReq.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/ArticleVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/BlogInfoVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/admin/AdminArticleVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/Article.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/UserInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/filter/JsonResp.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/filter/TokenAuth.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/BlogInfo.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Code.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Comments.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Logout.java" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Register.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/DBUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/DruidUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/PropertiesUtil.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/config/druid.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/admin/AdminArticles.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/admin/AdminLogin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/CaptchaUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/86e65be6-7c6d-4560-b79e-3d88317cb177.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/86e65be6-7c6d-4560-b79e-3d88317cb177.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/dataSources/86e65be6-7c6d-4560-b79e-3d88317cb177/storage_v2/_src_/schema/gvb.U5EBAA.meta" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/86e65be6-7c6d-4560-b79e-3d88317cb177/storage_v2/_src_/schema/gvb.U5EBAA.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/96b45e9f-4519-4dc9-8343-566c39893931.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/96b45e9f-4519-4dc9-8343-566c39893931.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/UserAuthDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/UserAuthDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/Err/ErrCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/Err/ErrCode.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/Err/ErrMessage.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/Err/ErrMessage.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/Result.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/Result.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/LoginReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/RegisterReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/RegisterReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/User/LoginVO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/Universal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/Universal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/UserAuth.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/UserAuth.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Index.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Articles.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/DBUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/DBUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/DruidUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/DruidUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/JsonUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/JsonUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/JwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/JwtUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/druid.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/druid.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,9 +59,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Servlet" />
         <option value="Fileter" />
         <option value="Class" />
-        <option value="Servlet" />
       </list>
     </option>
   </component>
@@ -85,7 +107,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/Users/xszxc/Desktop/workspace/keshe/blog/src/main/resources/lib",
+    "last_opened_file_path": "/Users/xszxc/Desktop/workspace/keshe/blog",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -117,6 +139,10 @@
       <recent name="com.github.xszhangxiaocuo.dao.UserDao" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.github.xszhangxiaocuo.entity.resp" />
+      <recent name="com.github.xszhangxiaocuo.servlet.admin" />
+      <recent name="com.github.xszhangxiaocuo.servlet" />
+      <recent name="com.github.xszhangxiaocuo.dao" />
       <recent name="com.github.xszhangxiaocuo.utils" />
     </key>
   </component>
@@ -126,7 +152,7 @@
       <deployment>
         <artifact name="blog:war exploded">
           <settings>
-            <option name="CONTEXT_PATH" value="/blog/api" />
+            <option name="CONTEXT_PATH" value="/blog" />
           </settings>
         </artifact>
       </deployment>
@@ -221,7 +247,10 @@
       <workItem from="1702000154344" duration="15029000" />
       <workItem from="1702104690040" duration="17260000" />
       <workItem from="1702456870889" duration="12357000" />
-      <workItem from="1702533566754" duration="36795000" />
+      <workItem from="1702533566754" duration="55114000" />
+      <workItem from="1702807262996" duration="2335000" />
+      <workItem from="1702822517736" duration="20622000" />
+      <workItem from="1702910195603" duration="33728000" />
     </task>
     <task id="LOCAL-00001" summary="项目初始化">
       <option name="closed" value="true" />
@@ -247,7 +276,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702541236236</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="完善登录，连接数据库">
+      <option name="closed" value="true" />
+      <created>1702645286393</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1702645286393</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -257,6 +294,8 @@
     <MESSAGE value="项目初始化" />
     <MESSAGE value="更改项目结构" />
     <MESSAGE value="更改目录结构" />
-    <option name="LAST_COMMIT_MESSAGE" value="更改目录结构" />
+    <MESSAGE value="完善登录" />
+    <MESSAGE value="完善登录，连接数据库" />
+    <option name="LAST_COMMIT_MESSAGE" value="完善登录，连接数据库" />
   </component>
 </project>

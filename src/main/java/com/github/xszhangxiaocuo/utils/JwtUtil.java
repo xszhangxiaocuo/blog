@@ -98,20 +98,18 @@ public class JwtUtil {
                     .parseClaimsJws(jsonWebToken)//解析传入的 JWT 字符串
                     .getBody();//获取其主体
         } catch (ExpiredJwtException ex) {
-            logger.severe("token过期"+ex);
             //过期
             //抛异常 让系统捕获到返回到前端
+            logger.severe("token过期"+ex);
         } catch (SignatureException ex) {
-            logger.severe("签名错误"+ ex);
             //签名错误
-            //抛异常 让系统捕获到返回到前端
+            logger.severe("签名错误"+ ex);
         } catch (IllegalArgumentException ex) {
-            logger.severe("token为空"+ex);
             //token 为空
-            //抛异常 让系统捕获到返回到前端
+            logger.severe("token为空"+ex);
         } catch (Exception e) {
+            //token异常
             logger.severe("解析token异常"+e);
-            //抛异常 让系统捕获到返回到前端
         }
         return null;
     }

@@ -3,60 +3,49 @@ package com.github.xszhangxiaocuo.dao;
 import com.github.xszhangxiaocuo.entity.Err.ErrCode;
 import com.github.xszhangxiaocuo.entity.sql.UserAuth;
 import com.github.xszhangxiaocuo.utils.DBUtil;
-import com.mysql.cj.x.protobuf.Mysqlx;
-import org.apache.ibatis.jdbc.Null;
 
 import java.math.BigInteger;
-import java.util.IdentityHashMap;
 import java.util.logging.Logger;
 
 
-public class UserAuthDao extends DBUtil {
-    Logger logger = Logger.getLogger(UserAuthDao.class.getName());
+public class UserAuthDao {
+    static Logger logger = Logger.getLogger(UserAuthDao.class.getName());
+    static DBUtil db = new DBUtil();//数据库连接
 
     /**
      * 传入UserAuth对象进行插入，id自增
      * @param data
      * @return
      */
-    public ErrCode insert(UserAuth data) {
+    public static ErrCode insert(UserAuth data) {
         try {
             //用户已经存在
             if (query(data.getUsername())!=null){
                 return ErrCode.ERROR_USER_NAME_USED;
             }
+            db.getConnection();
 
-            String sql = "INSERT INTO user_auth(?,?,?,?,?,?,?,?,?)" +
-                    "VALUE(?,?,?,?,?,?,?,?,?)";
-            preStmt = conn.prepareStatement(sql);
-            preStmt.setString(1,data.createAtName);
-            preStmt.setString(2,data.updatedAtName);
-            preStmt.setString(3,data.userInfoIdName);
-            preStmt.setString(4,data.usernameName);
-            preStmt.setString(5,data.passwordName);
-            preStmt.setString(6,data.loginTypeName);
-            preStmt.setString(7,data.ipAddressName);
-            preStmt.setString(8,data.ipSourceName);
-            preStmt.setString(9,data.lastLoginTimeName);
+            String sql = "INSERT INTO user_auth(user_info_id, username, password, login_type, ip_addr, ip_source, create_time,last_login_time) " +
+                    "VALUES(?,?,?,?,?,?,?,?)";
+            db.preStmt = db.conn.prepareStatement(sql);
 
-            preStmt.setDate(10,data.getCreatedAt());
-            preStmt.setDate(11,data.getUpdatedAt());
-            preStmt.setObject(12,BigInteger.valueOf(data.getUserInfoId()));
-            preStmt.setString(13,data.getUsername());
-            preStmt.setString(14,data.getPassword());
-            preStmt.setByte(15,data.getLoginType());
-            preStmt.setString(16,data.getIpAddress());
-            preStmt.setString(17,data.getIpSource());
-            preStmt.setDate(18,data.getLastLoginTime());
+            db.preStmt.setInt(1, data.getUserInfoId());
+            db.preStmt.setString(2, data.getUsername());
+            db.preStmt.setString(3, data.getPassword());
+            db.preStmt.setByte(4, data.getLoginType());
+            db.preStmt.setString(5, data.getIpAddress());
+            db.preStmt.setString(6, data.getIpSource());
+            db.preStmt.setTimestamp(7, data.getCreateTime());
+            db.preStmt.setTimestamp(8, data.getLastLoginTime());
 
-            int row = preStmt.executeUpdate();
+            int row = db.preStmt.executeUpdate();
             if (row>0){
                 return ErrCode.OK;
             }
         }catch (Exception e){
-            logger.severe(e.getMessage());
+            e.printStackTrace();
         }finally {
-            super.close(rs,preStmt,conn);
+            db.close();
         }
         return ErrCode.FAIL;
     }
@@ -66,21 +55,22 @@ public class UserAuthDao extends DBUtil {
      * @param key
      * @return
      */
-    public ErrCode delete(String key) {
+    public static ErrCode delete(String key) {
         try {
+            db.getConnection();
             String sql = "delete from user_auth where username = ?";
-            preStmt = conn.prepareStatement(sql);
+            db.preStmt = db.conn.prepareStatement(sql);
 
-            preStmt.setString(1,key);
+            db.preStmt.setString(1,key);
 
-            int row = preStmt.executeUpdate();
+            int row = db.preStmt.executeUpdate();
             if (row>0){
                 return ErrCode.OK;
             }
         }catch (Exception e){
-            logger.severe(e.getMessage());
+            e.printStackTrace();
         }finally {
-            super.close(rs,preStmt,conn);
+            db.close();
         }
         return ErrCode.FAIL;
     }
@@ -90,41 +80,33 @@ public class UserAuthDao extends DBUtil {
      * @param data
      * @return
      */
-    public ErrCode update(UserAuth data) {
+    public static ErrCode update(UserAuth data) {
         try {
+            db.getConnection();
             String sql = "UPDATE user_auth SET " +
-                    "?=?,?=?,?=?,?=?,?=?,?=?,?=?,?=?,?=? WHERE username=?";
-            preStmt = conn.prepareStatement(sql);
-            preStmt.setString(1,data.createAtName);
-            preStmt.setString(2,data.updatedAtName);
-            preStmt.setString(3,data.userInfoIdName);
-            preStmt.setString(4,data.usernameName);
-            preStmt.setString(5,data.passwordName);
-            preStmt.setString(6,data.loginTypeName);
-            preStmt.setString(7,data.ipAddressName);
-            preStmt.setString(8,data.ipSourceName);
-            preStmt.setString(9,data.lastLoginTimeName);
+                    "user_info_id=?, username=?, password=?, login_type=?, ip_addr=?, ip_source=?, create_time=?,last_login_time=? " +
+                    "WHERE username=?";
+            db.preStmt = db.conn.prepareStatement(sql);
 
-            preStmt.setDate(10,data.getCreatedAt());
-            preStmt.setDate(11,data.getUpdatedAt());
-            preStmt.setObject(12,BigInteger.valueOf(data.getUserInfoId()));
-            preStmt.setString(13,data.getUsername());
-            preStmt.setString(14,data.getPassword());
-            preStmt.setByte(15,data.getLoginType());
-            preStmt.setString(16,data.getIpAddress());
-            preStmt.setString(17,data.getIpSource());
-            preStmt.setDate(18,data.getLastLoginTime());
+            db.preStmt.setObject(1, BigInteger.valueOf(data.getUserInfoId()));
+            db.preStmt.setString(2, data.getUsername());
+            db.preStmt.setString(3, data.getPassword());
+            db.preStmt.setByte(4, data.getLoginType());
+            db.preStmt.setString(5, data.getIpAddress());
+            db.preStmt.setString(6, data.getIpSource());
+            db.preStmt.setTimestamp(7, data.getCreateTime());
+            db.preStmt.setTimestamp(8, data.getLastLoginTime());
 
-            preStmt.setString(19,data.getUsername());
+            db.preStmt.setString(9, data.getUsername());
 
-            int row = preStmt.executeUpdate();
+            int row = db.preStmt.executeUpdate();
             if (row>0){
                 return ErrCode.OK;
             }
         }catch (Exception e){
-            logger.severe(e.getMessage());
+            e.printStackTrace();
         }finally {
-            super.close(rs,preStmt,conn);
+            db.close();
         }
         return ErrCode.FAIL;
     }
@@ -134,32 +116,32 @@ public class UserAuthDao extends DBUtil {
      * @param key
      * @return
      */
-    public UserAuth query(String key) {
+    public static UserAuth query(String key) {
         try {
+            db.getConnection();
             String sql = "SELECT * FROM user_auth WHERE username=?";
-            preStmt = conn.prepareStatement(sql);
-            preStmt.setObject(1,key);
+            db.preStmt = db.conn.prepareStatement(sql);
+            db.preStmt.setObject(1,key);
 
-            rs = preStmt.executeQuery();
+            db.rs = db.preStmt.executeQuery();
 
-            while (rs.next()) {
+            while (db.rs.next()) {
                 UserAuth userAuth = new UserAuth();
-                userAuth.setId(rs.getLong(userAuth.idName));
-                userAuth.setCreatedAt(rs.getDate(userAuth.createAtName));
-                userAuth.setUpdatedAt(rs.getDate(userAuth.updatedAtName));
-                userAuth.setUserInfoId(rs.getLong(userAuth.userInfoIdName));
-                userAuth.setUsername(rs.getString(userAuth.usernameName));
-                userAuth.setPassword(rs.getString(userAuth.passwordName));
-                userAuth.setLoginType(rs.getByte(userAuth.loginTypeName));
-                userAuth.setIpAddress(rs.getString(userAuth.ipAddressName));
-                userAuth.setIpSource(rs.getString(userAuth.ipSourceName));
-                userAuth.setLastLoginTime(rs.getDate(userAuth.lastLoginTimeName));
+                userAuth.setId(db.rs.getInt(UserAuth.idName));
+                userAuth.setUserInfoId(db.rs.getInt(UserAuth.userInfoIdName));
+                userAuth.setUsername(db.rs.getString(UserAuth.usernameName));
+                userAuth.setPassword(db.rs.getString(UserAuth.passwordName));
+                userAuth.setLoginType(db.rs.getByte(UserAuth.loginTypeName));
+                userAuth.setIpAddress(db.rs.getString(UserAuth.ipAddressName));
+                userAuth.setIpSource(db.rs.getString(UserAuth.ipSourceName));
+                userAuth.setCreateTime(db.rs.getTimestamp(UserAuth.createTimeName));
+                userAuth.setLastLoginTime(db.rs.getTimestamp(UserAuth.lastLoginTimeName));
                 return userAuth;
             }
         }catch (Exception e){
             e.printStackTrace();
         }finally {
-            super.close(rs,preStmt,conn);
+            db.close();
         }
         return null;
     }

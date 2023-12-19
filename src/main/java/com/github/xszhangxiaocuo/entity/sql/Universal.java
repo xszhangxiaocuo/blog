@@ -3,46 +3,34 @@ package com.github.xszhangxiaocuo.entity.sql;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.math.BigInteger;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 //所有表中都有的字段
 public class Universal {
-    public String idName = "id";
-    public String createAtName = "created_at";
-    public String updatedAtName = "updated_at";
+    public static String idName = "id";
+    public static String createTimeName = "create_time";
+
     @JsonProperty("id")
-    private long id;
+    private int id;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.fff")
-    @JsonProperty("created_at")
-    private Date createdAt;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonProperty("create_time")
+    private Timestamp createTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.fff")
-    @JsonProperty("updated_at")
-    private Date updatedAt;
-
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    public Date getCreatedAt() {
-        return createdAt;
+    public Timestamp getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setCreateTime(Timestamp createTime) {
+        this.createTime = createTime;
     }
 
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
 }

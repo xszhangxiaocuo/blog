@@ -8,20 +8,16 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class DBUtil {
-    protected Connection conn = null;
-    protected PreparedStatement preStmt = null;
-    protected ResultSet rs = null;
+    public Connection conn = null;
+    public PreparedStatement preStmt = null;
+    public ResultSet rs = null;
 
-    public DBUtil(){
+    public void getConnection(){
         conn = DruidUtil.getConnection();
     }
 
-    public void close(Statement stmt, Connection conn){
-        DruidUtil.close(stmt,conn);
-    }
-
-    public void close(ResultSet rs, Statement stmt, Connection conn){
-        DruidUtil.close(rs,stmt,conn);
+    public void close(){
+        DruidUtil.close(rs,preStmt,conn);
     }
 
 }
