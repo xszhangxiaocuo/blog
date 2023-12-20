@@ -38,6 +38,12 @@ public class Article extends Universal{
     @JsonProperty("isDelete")
     private byte isDelete;//是否被删除
 
+    public Article(){};
+
+    public Article(Timestamp now){
+        setCreateTime(now);
+    };
+
     public Timestamp getUpdateTime() {
         return updateTime;
     }

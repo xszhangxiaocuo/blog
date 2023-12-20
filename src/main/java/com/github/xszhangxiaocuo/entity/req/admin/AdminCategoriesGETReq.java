@@ -2,7 +2,7 @@ package com.github.xszhangxiaocuo.entity.req.admin;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class AdminArticlesReq {
+public class AdminCategoriesGETReq {
     @JsonProperty("current")
     private int current;
 
@@ -11,12 +11,6 @@ public class AdminArticlesReq {
 
     @JsonProperty("keywords")
     private String keywords;
-
-    @JsonProperty("isDelete")
-    private byte isDelete;
-
-    @JsonProperty("isDraft")
-    private byte isDraft;
 
     public int getCurrent() {
         return current;
@@ -28,14 +22,6 @@ public class AdminArticlesReq {
 
     public String getKeywords() {
         return keywords;
-    }
-
-    public byte getIsDelete() {
-        return isDelete;
-    }
-
-    public byte getIsDraft() {
-        return isDraft;
     }
 
     public void setCurrent(int current) {
@@ -50,11 +36,4 @@ public class AdminArticlesReq {
         this.keywords = keywords;
     }
 
-    public void setIsDelete(byte isDelete) {
-        this.isDelete = isDelete;
-    }
-
-    public void setIsDraft(byte isDraft) {
-        this.isDraft = isDraft;
-    }
 }

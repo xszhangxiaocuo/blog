@@ -1086,8 +1086,8 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="295" parent="1" name="blog">
       <Current>1</Current>
-      <IntrospectionTimestamp>2023-12-19.16:26:03</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-12-19.08:26:03</LocalIntrospectionTimestamp>
+      <IntrospectionTimestamp>2023-12-20.14:37:01</IntrospectionTimestamp>
+      <LocalIntrospectionTimestamp>2023-12-20.06:37:01</LocalIntrospectionTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="296" parent="1" name="root">
@@ -1336,386 +1336,398 @@ article_content</ColNames>
       <DasType>datetime|0s</DasType>
       <Position>3</Position>
     </column>
-    <index id="342" parent="304" name="PRIMARY">
+    <column id="342" parent="304" name="user_id">
+      <Comment>用户id</Comment>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <index id="343" parent="304" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="343" parent="304" name="PRIMARY">
+    <key id="344" parent="304" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="344" parent="305" name="id">
+    <column id="345" parent="305" name="id">
       <AutoIncrement>15</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="345" parent="305" name="user_id">
+    <column id="346" parent="305" name="user_id">
       <Comment>评论用户Id</Comment>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="346" parent="305" name="article_id">
+    <column id="347" parent="305" name="article_id">
       <Comment>评论文章id</Comment>
       <DasType>int|0s</DasType>
       <Position>3</Position>
     </column>
-    <column id="347" parent="305" name="comment_content">
+    <column id="348" parent="305" name="comment_content">
       <Comment>评论内容</Comment>
       <DasType>text|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="348" parent="305" name="create_time">
+    <column id="349" parent="305" name="create_time">
       <Comment>评论时间</Comment>
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="349" parent="305" name="reply_id">
+    <column id="350" parent="305" name="reply_id">
       <Comment>回复用户id</Comment>
       <DasType>int|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="350" parent="305" name="parent_id">
+    <column id="351" parent="305" name="parent_id">
       <Comment>父评论id</Comment>
       <DasType>int|0s</DasType>
       <Position>7</Position>
     </column>
-    <column id="351" parent="305" name="is_delete">
+    <column id="352" parent="305" name="is_delete">
       <Comment>是否删除</Comment>
       <DasType>tinyint|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>8</Position>
     </column>
-    <index id="352" parent="305" name="PRIMARY">
+    <index id="353" parent="305" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="353" parent="305" name="fk_comment_user">
+    <index id="354" parent="305" name="fk_comment_user">
       <ColNames>user_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="354" parent="305" name="fk_comment_article">
+    <index id="355" parent="305" name="fk_comment_article">
       <ColNames>article_id</ColNames>
       <Type>btree</Type>
     </index>
-    <index id="355" parent="305" name="fk_comment_parent">
+    <index id="356" parent="305" name="fk_comment_parent">
       <ColNames>parent_id</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="356" parent="305" name="PRIMARY">
+    <key id="357" parent="305" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="357" parent="306" name="id">
+    <column id="358" parent="306" name="id">
       <AutoIncrement>9</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="358" parent="306" name="link_name">
+    <column id="359" parent="306" name="link_name">
       <Comment>链接名</Comment>
       <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="359" parent="306" name="link_avatar">
+    <column id="360" parent="306" name="link_avatar">
       <Comment>链接头像</Comment>
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="360" parent="306" name="link_address">
+    <column id="361" parent="306" name="link_address">
       <Comment>链接地址</Comment>
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="361" parent="306" name="link_intro">
+    <column id="362" parent="306" name="link_intro">
       <Comment>链接介绍</Comment>
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="362" parent="306" name="create_time">
+    <column id="363" parent="306" name="create_time">
       <Comment>创建时间</Comment>
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <index id="363" parent="306" name="PRIMARY">
+    <index id="364" parent="306" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="364" parent="306" name="fk_friend_link_user">
+    <index id="365" parent="306" name="fk_friend_link_user">
       <ColNames>link_name</ColNames>
       <Type>btree</Type>
     </index>
-    <key id="365" parent="306" name="PRIMARY">
+    <key id="366" parent="306" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="366" parent="307" name="id">
+    <column id="367" parent="307" name="id">
       <AutoIncrement>47</AutoIncrement>
       <Comment>主键id</Comment>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="367" parent="307" name="ip_address">
+    <column id="368" parent="307" name="ip_address">
       <Comment>用户ip</Comment>
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="368" parent="307" name="ip_source">
+    <column id="369" parent="307" name="ip_source">
       <Comment>用户地址</Comment>
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="369" parent="307" name="nickname">
+    <column id="370" parent="307" name="nickname">
       <Comment>昵称</Comment>
       <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="370" parent="307" name="avatar">
+    <column id="371" parent="307" name="avatar">
       <Comment>头像</Comment>
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="371" parent="307" name="message_content">
+    <column id="372" parent="307" name="message_content">
       <Comment>留言内容</Comment>
       <DasType>varchar(255)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>6</Position>
     </column>
-    <column id="372" parent="307" name="time">
+    <column id="373" parent="307" name="time">
       <Comment>弹幕速度</Comment>
       <DasType>tinyint(1)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="373" parent="307" name="create_time">
+    <column id="374" parent="307" name="create_time">
       <Comment>发布时间</Comment>
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <index id="374" parent="307" name="PRIMARY">
+    <index id="375" parent="307" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="375" parent="307" name="PRIMARY">
+    <key id="376" parent="307" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="376" parent="308" name="id">
+    <column id="377" parent="308" name="id">
       <AutoIncrement>11</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="377" parent="308" name="tag_name">
+    <column id="378" parent="308" name="tag_name">
       <Comment>标签名</Comment>
       <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="378" parent="308" name="create_time">
+    <column id="379" parent="308" name="create_time">
       <Comment>创建时间</Comment>
       <DasType>datetime|0s</DasType>
       <Position>3</Position>
     </column>
-    <index id="379" parent="308" name="PRIMARY">
+    <column id="380" parent="308" name="user_id">
+      <Comment>用户id</Comment>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <index id="381" parent="308" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="380" parent="308" name="PRIMARY">
+    <key id="382" parent="308" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="381" parent="309" name="id">
+    <column id="383" parent="309" name="id">
       <AutoIncrement>12</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="382" parent="309" name="create_time">
+    <column id="384" parent="309" name="create_time">
       <Comment>时间</Comment>
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="383" parent="309" name="views_count">
+    <column id="385" parent="309" name="views_count">
       <Comment>访问量</Comment>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <index id="384" parent="309" name="PRIMARY">
+    <index id="386" parent="309" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="385" parent="309" name="PRIMARY">
+    <key id="387" parent="309" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <column id="386" parent="310" name="id">
+    <column id="388" parent="310" name="id">
       <AutoIncrement>21</AutoIncrement>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="387" parent="310" name="user_info_id">
+    <column id="389" parent="310" name="user_info_id">
       <Comment>用户信息id</Comment>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="388" parent="310" name="username">
+    <column id="390" parent="310" name="username">
       <Comment>用户名</Comment>
       <DasType>varchar(50)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="389" parent="310" name="password">
+    <column id="391" parent="310" name="password">
       <Comment>密码</Comment>
       <DasType>varchar(100)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="390" parent="310" name="login_type">
+    <column id="392" parent="310" name="login_type">
       <Comment>登录类型</Comment>
       <DasType>tinyint(1)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>5</Position>
     </column>
-    <column id="391" parent="310" name="ip_addr">
+    <column id="393" parent="310" name="ip_addr">
       <Comment>用户登录ip</Comment>
       <DasType>varchar(50)|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="392" parent="310" name="ip_source">
+    <column id="394" parent="310" name="ip_source">
       <Comment>ip来源</Comment>
       <DasType>varchar(50)|0s</DasType>
       <Position>7</Position>
     </column>
-    <column id="393" parent="310" name="create_time">
+    <column id="395" parent="310" name="create_time">
       <Comment>创建时间</Comment>
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>8</Position>
     </column>
-    <column id="394" parent="310" name="last_login_time">
+    <column id="396" parent="310" name="last_login_time">
       <Comment>上次登录时间</Comment>
       <DasType>datetime|0s</DasType>
       <Position>9</Position>
     </column>
-    <index id="395" parent="310" name="PRIMARY">
+    <index id="397" parent="310" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="396" parent="310" name="unique_username">
+    <index id="398" parent="310" name="unique_username">
       <ColNames>username</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="397" parent="310" name="PRIMARY">
+    <key id="399" parent="310" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="398" parent="310" name="unique_username">
+    <key id="400" parent="310" name="unique_username">
       <UnderlyingIndexName>unique_username</UnderlyingIndexName>
     </key>
-    <column id="399" parent="311" name="id">
+    <column id="401" parent="311" name="id">
       <AutoIncrement>23</AutoIncrement>
       <Comment>用户ID</Comment>
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="400" parent="311" name="user_role">
+    <column id="402" parent="311" name="user_role">
       <Comment>用户角色</Comment>
       <DasType>varchar(20)|0s</DasType>
       <DefaultExpression>&apos;user&apos;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="401" parent="311" name="nickname">
+    <column id="403" parent="311" name="nickname">
       <Comment>用户昵称</Comment>
       <DasType>varchar(20)|0s</DasType>
       <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="402" parent="311" name="avatar">
+    <column id="404" parent="311" name="avatar">
       <Comment>用户头像</Comment>
       <DasType>varchar(1024)|0s</DasType>
       <DefaultExpression>&apos;https://www.static.talkxj.com/avatar/user.png&apos;</DefaultExpression>
       <NotNull>1</NotNull>
       <Position>4</Position>
     </column>
-    <column id="403" parent="311" name="intro">
+    <column id="405" parent="311" name="intro">
       <Comment>用户简介</Comment>
       <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
     </column>
-    <column id="404" parent="311" name="web_site">
+    <column id="406" parent="311" name="web_site">
       <Comment>个人网站</Comment>
       <DasType>varchar(255)|0s</DasType>
       <Position>6</Position>
     </column>
-    <column id="405" parent="311" name="create_time">
+    <column id="407" parent="311" name="create_time">
       <Comment>创建时间</Comment>
       <DasType>datetime|0s</DasType>
       <NotNull>1</NotNull>
       <Position>7</Position>
     </column>
-    <column id="406" parent="311" name="is_silence">
+    <column id="408" parent="311" name="is_silence">
       <Comment>是否禁言</Comment>
       <DasType>tinyint(1)|0s</DasType>
       <DefaultExpression>0</DefaultExpression>
       <Position>8</Position>
     </column>
-    <column id="407" parent="311" name="blog_title">
+    <column id="409" parent="311" name="blog_title">
       <DasType>varchar(20)|0s</DasType>
       <Position>9</Position>
     </column>
-    <index id="408" parent="311" name="PRIMARY">
+    <index id="410" parent="311" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="409" parent="311" name="unique_user">
+    <index id="411" parent="311" name="unique_user">
       <ColNames>nickname</ColNames>
       <Comment>用户名，昵称，邮箱不可重复</Comment>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="410" parent="311" name="PRIMARY">
+    <key id="412" parent="311" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="411" parent="311" name="unique_user">
+    <key id="413" parent="311" name="unique_user">
       <UnderlyingIndexName>unique_user</UnderlyingIndexName>
     </key>
   </database-model>

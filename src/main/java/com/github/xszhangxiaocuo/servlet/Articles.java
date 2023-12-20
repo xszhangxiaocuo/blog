@@ -27,7 +27,7 @@ public class Articles extends HttpServlet {
         response.setCharacterEncoding("UTF-8");
         // 构建响应数据对象
         Result result = new Result<>();
-        List<Article> articles = new ArrayList<>();
+        List<Article> articles;
         try {
             String pathInfo = request.getPathInfo(); // 获取 URL 中的路径部分
             if (pathInfo != null) {//不为空表示获取特定文章信息

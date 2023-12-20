@@ -14,7 +14,7 @@ public class Universal {
     private int id;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    @JsonProperty("create_time")
+    @JsonProperty("createTime")
     private Timestamp createTime;
 
     public int getId() {

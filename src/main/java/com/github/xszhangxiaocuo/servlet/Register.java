@@ -11,13 +11,13 @@ import com.github.xszhangxiaocuo.entity.req.RegisterReq;
 import com.github.xszhangxiaocuo.entity.sql.UserAuth;
 import com.github.xszhangxiaocuo.entity.sql.UserInfo;
 import com.github.xszhangxiaocuo.utils.JsonUtil;
+import com.github.xszhangxiaocuo.utils.TimeUtil;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.time.LocalDateTime;
 
 @WebServlet(name = "register", value = "/users/register")
 public class Register extends HttpServlet {
@@ -59,9 +59,7 @@ public class Register extends HttpServlet {
                 CODE=ErrCode.ERROR_USER_NAME_USED.getCode();
                 result.failure(CODE, ErrMessage.getMsg(CODE));
             }else {
-                //获取当前时间
-                LocalDateTime now = LocalDateTime.now();
-                Timestamp timestamp = Timestamp.valueOf(now);
+                Timestamp timestamp = TimeUtil.getTimeStamp();
                 UserInfo userInfo = new UserInfo(timestamp);
                 //用户角色默认为普通用户
                 userInfo.setUserRole("普通用户");

@@ -1,19 +1,16 @@
 package com.github.xszhangxiaocuo.servlet.admin;
 
-import com.alibaba.druid.sql.visitor.functions.Now;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.github.xszhangxiaocuo.dao.ArticleDao;
 import com.github.xszhangxiaocuo.entity.Err.ErrCode;
 import com.github.xszhangxiaocuo.entity.Err.ErrMessage;
 import com.github.xszhangxiaocuo.entity.Result;
-import com.github.xszhangxiaocuo.entity.req.BlogInfoReq;
 import com.github.xszhangxiaocuo.entity.req.admin.AdminArticlesPOSTReq;
 import com.github.xszhangxiaocuo.entity.resp.admin.AdminArticleGETVO;
 import com.github.xszhangxiaocuo.entity.sql.Article;
 import com.github.xszhangxiaocuo.utils.JsonUtil;
 import com.github.xszhangxiaocuo.utils.TimeUtil;
-import com.mysql.cj.util.DnsSrv;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -22,12 +19,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-@WebServlet(name = "adminArticles", value = "/admin/articles/*")
-public class AdminArticles extends HttpServlet {
+@WebServlet(name = "adminUsers", value = "/admin/Users/*")
+public class AdminUsers extends HttpServlet {
     int CODE;//业务代码
     int CURRENT=0;//当前页数
     int pageSize=5;//默认每一页大小为5
@@ -95,7 +90,7 @@ public class AdminArticles extends HttpServlet {
             AdminArticlesPOSTReq postReq = JSON.toJavaObject(json, AdminArticlesPOSTReq.class);
             List<Article> articles = ArticleDao.query(postReq.getId(),ArticleDao.FINDBYARTID);
             Timestamp now = TimeUtil.getTimeStamp();
-            if (articles.isEmpty()) {//文章不存在就插入数据
+            if (articles==null) {//文章不存在就插入数据
                 Article article = new Article(now);
 
                 article.setUserId(postReq.getUserId());

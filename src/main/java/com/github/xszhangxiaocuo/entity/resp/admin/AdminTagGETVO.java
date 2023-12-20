@@ -1,22 +1,23 @@
 package com.github.xszhangxiaocuo.entity.resp.admin;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.xszhangxiaocuo.entity.sql.Article;
+import com.github.xszhangxiaocuo.entity.sql.Category;
+import com.github.xszhangxiaocuo.entity.sql.Tag;
 
 import java.util.List;
 
-public class AdminArticleVO {
+public class AdminTagGETVO {
     @JsonProperty("count")
     private int count;
 
     @JsonProperty("recordList")
-    private List<Article> recordList;
+    private List<Tag> recordList;
 
     public int getCount() {
         return count;
     }
 
-    public List<Article> getRecordList() {
+    public List<Tag> getRecordList() {
         return recordList;
     }
 
@@ -24,7 +25,7 @@ public class AdminArticleVO {
         this.count = count;
     }
 
-    public void setRecordList(List<Article> recordList) {
+    public void setRecordList(List<Tag> recordList) {
         this.recordList = recordList;
     }
 }

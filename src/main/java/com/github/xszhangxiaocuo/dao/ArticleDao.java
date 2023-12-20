@@ -18,7 +18,7 @@ public class ArticleDao {
     public static int FINDBYARTID = 2;//查找一篇文章
 
     /**
-     * 传入UserInfo对象进行插入，id自增
+     * 传入Article对象进行插入，id自增
      * @param data
      * @return
      */
@@ -87,7 +87,7 @@ public class ArticleDao {
         try {
             db.getConnection();
             String sql = "UPDATE article SET " +
-                    "user_id=?, category_id=?, article_cover=?, article_title=?, article_content=?,create_time=?, update_time=?,is_top=?,is_draft=?,is_delete=?" +
+                    "user_id=?, category_id=?, article_cover=?, article_title=?, article_content=?,create_time=?, update_time=?,is_top=?,is_draft=?,is_delete=? " +
                     "WHERE id=?";
             db.preStmt = db.conn.prepareStatement(sql);
 
@@ -123,8 +123,8 @@ public class ArticleDao {
      * @return
      */
     public static List<Article> query(int key,int type) {
+        List<Article> list = new ArrayList<>();
         try {
-            List<Article> list = new ArrayList<>();
             db.getConnection();
 
             String sql = "SELECT * FROM article WHERE is_draft=0 AND is_delete=0";//查找所有未被删除且不是草稿的文章
@@ -164,7 +164,7 @@ public class ArticleDao {
         }finally {
             db.close();
         }
-        return null;
+        return list;
     }
 
     /**
@@ -175,8 +175,8 @@ public class ArticleDao {
      * @return
      */
     public static List<Article> query(int key,int type,int page,int pageSize) {
+        List<Article> list = new ArrayList<>();
         try {
-            List<Article> list = new ArrayList<>();
             db.getConnection();
 
             String sql = "SELECT * FROM article WHERE is_draft=0 AND is_delete=0 LIMIT ? OFFSET ?";//查找所有未被删除且不是草稿的文章
@@ -219,7 +219,7 @@ public class ArticleDao {
         }finally {
             db.close();
         }
-        return null;
+        return list;
     }
 
 }
