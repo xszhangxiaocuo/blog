@@ -9,33 +9,30 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="66baf21f-4d2c-4584-9b4b-52be032badff" name="Changes" comment="完成后台博客文章数据请求api">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/CategoryDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/TagDao.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/admin/AdminArticlesPOSTReq.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/admin/AdminCategoriesGETReq.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/admin/AdminCategoriesPOSTReq.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/admin/AdminTagDELETEReq.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/admin/AdminTagGETReq.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/admin/AdminTagPOSTReq.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/admin/AdminCategoriesGETVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/admin/AdminTagGETVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/Category.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/Tag.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/admin/AdminCategories.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/admin/AdminTags.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/admin/AdminUsers.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/TimeUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/86e65be6-7c6d-4560-b79e-3d88317cb177.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/86e65be6-7c6d-4560-b79e-3d88317cb177.xml" afterDir="false" />
+    <list default="true" id="66baf21f-4d2c-4584-9b4b-52be032badff" name="Changes" comment="完成后台博客分类、标签数据请求api">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/ArticleTagDao.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/admin/AdminArticlesOptionsVO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/ArticleTag.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/PathInfoUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/PicBedutil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/ArticleDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/ArticleDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/admin/AdminArticlesReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/admin/AdminArticlesGETReq.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/admin/AdminArticleVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/admin/AdminArticleGETVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/CategoryDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/CategoryDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/TagDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/dao/TagDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/admin/AdminTagDELETEReq.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/req/admin/AdminDELETEReq.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/BlogInfoVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/BlogInfoVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/admin/AdminArticleGETVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/admin/AdminListGETVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/admin/AdminCategoriesGETVO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/resp/admin/AdminTagGETVO.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/Article.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/Article.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/Universal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/entity/sql/Universal.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Articles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Articles.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Register.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/Register.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/BlogInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/BlogInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/admin/AdminArticles.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/admin/AdminArticles.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/admin/AdminCategories.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/admin/AdminCategories.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/admin/AdminTags.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/admin/AdminTags.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/admin/AdminUsers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/servlet/admin/AdminUsers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/JsonUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/JsonUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/TimeUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/github/xszhangxiaocuo/utils/TimeUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/config/druid.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/config/druid.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,12 +90,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
+    "extract.method.default.visibility": "private",
     "last_opened_file_path": "/Users/xszxc/Desktop/workspace/keshe/blog",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "project.structure.last.edited": "Libraries",
+    "project.structure.last.edited": "Artifacts",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
     "settings.editor.selected.configurable": "MavenSettings",
@@ -125,11 +123,11 @@
       <recent name="com.github.xszhangxiaocuo.dao.UserDao" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.github.xszhangxiaocuo.dao" />
+      <recent name="com.github.xszhangxiaocuo.entity.resp" />
       <recent name="com.github.xszhangxiaocuo.entity.req.admin" />
       <recent name="com.github.xszhangxiaocuo.servlet.admin" />
       <recent name="com.github.xszhangxiaocuo.entity.resp.admin" />
-      <recent name="com.github.xszhangxiaocuo.dao" />
-      <recent name="com.github.xszhangxiaocuo.entity.sql" />
     </key>
   </component>
   <component name="RunManager">
@@ -236,7 +234,7 @@
       <workItem from="1702533566754" duration="55114000" />
       <workItem from="1702807262996" duration="2335000" />
       <workItem from="1702822517736" duration="20622000" />
-      <workItem from="1702910195603" duration="54717000" />
+      <workItem from="1702910195603" duration="83013000" />
     </task>
     <task id="LOCAL-00001" summary="项目初始化">
       <option name="closed" value="true" />
@@ -286,7 +284,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702993404662</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="完成后台博客分类、标签数据请求api">
+      <option name="closed" value="true" />
+      <created>1703082802437</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1703082802437</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -300,7 +306,8 @@
     <MESSAGE value="完善登录，连接数据库" />
     <MESSAGE value="完成前台博客文章数据请求api" />
     <MESSAGE value="完成后台博客文章数据请求api" />
-    <option name="LAST_COMMIT_MESSAGE" value="完成后台博客文章数据请求api" />
+    <MESSAGE value="完成后台博客分类、标签数据请求api" />
+    <option name="LAST_COMMIT_MESSAGE" value="完成后台博客分类、标签数据请求api" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -2,8 +2,11 @@ package com.github.xszhangxiaocuo.dao;
 
 import com.github.xszhangxiaocuo.entity.Err.ErrCode;
 import com.github.xszhangxiaocuo.entity.sql.Article;
+import com.github.xszhangxiaocuo.entity.sql.Category;
+import com.github.xszhangxiaocuo.entity.sql.Tag;
 import com.github.xszhangxiaocuo.utils.DBUtil;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -143,22 +146,7 @@ public class ArticleDao {
 
             db.rs = db.preStmt.executeQuery();
 
-            while (db.rs.next()) {
-               Article article = new Article();
-               article.setId(db.rs.getInt(Article.idName));
-               article.setUserId(db.rs.getInt(Article.userIdName));
-               article.setCategoryId(db.rs.getInt(Article.categoryIdName));
-               article.setArticleCover(db.rs.getString(Article.articleCoverName));
-               article.setArticleTitle(db.rs.getString(Article.articleTitleName));
-               article.setArticleContent(db.rs.getString(Article.articleContentName));
-               article.setCreateTime(db.rs.getTimestamp(Article.createTimeName));
-               article.setUpdateTime(db.rs.getTimestamp(Article.updateTimeName));
-               article.setIsTop(db.rs.getByte(Article.isTopName));
-               article.setIsDraft(db.rs.getByte(Article.isDraftName));
-               article.setIsDelete(db.rs.getByte(Article.isDeleteName));
-               list.add(article);
-            }
-            return list;
+            return getList(list);
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -198,26 +186,39 @@ public class ArticleDao {
 
             db.rs = db.preStmt.executeQuery();
 
-            while (db.rs.next()) {
-                Article article = new Article();
-                article.setId(db.rs.getInt(Article.idName));
-                article.setUserId(db.rs.getInt(Article.userIdName));
-                article.setCategoryId(db.rs.getInt(Article.categoryIdName));
-                article.setArticleCover(db.rs.getString(Article.articleCoverName));
-                article.setArticleTitle(db.rs.getString(Article.articleTitleName));
-                article.setArticleContent(db.rs.getString(Article.articleContentName));
-                article.setCreateTime(db.rs.getTimestamp(Article.createTimeName));
-                article.setUpdateTime(db.rs.getTimestamp(Article.updateTimeName));
-                article.setIsTop(db.rs.getByte(Article.isTopName));
-                article.setIsDraft(db.rs.getByte(Article.isDraftName));
-                article.setIsDelete(db.rs.getByte(Article.isDeleteName));
-                list.add(article);
-            }
-            return list;
+            return getList(list);
         }catch (Exception e){
             e.printStackTrace();
         }finally {
             db.close();
+        }
+        return list;
+    }
+
+    private static List<Article> getList(List<Article> list) throws SQLException {
+        while (db.rs.next()) {
+            Article article = new Article();
+            article.setId(db.rs.getInt(Article.idName));
+            article.setUserId(db.rs.getInt(Article.userIdName));
+            article.setCategoryId(db.rs.getInt(Article.categoryIdName));
+            article.setArticleCover(db.rs.getString(Article.articleCoverName));
+            article.setArticleTitle(db.rs.getString(Article.articleTitleName));
+            article.setArticleContent(db.rs.getString(Article.articleContentName));
+            article.setCreateTime(db.rs.getTimestamp(Article.createTimeName));
+            article.setUpdateTime(db.rs.getTimestamp(Article.updateTimeName));
+            article.setIsTop(db.rs.getByte(Article.isTopName));
+            article.setIsDraft(db.rs.getByte(Article.isDraftName));
+            article.setIsDelete(db.rs.getByte(Article.isDeleteName));
+
+            List<Tag> tags = ArticleTagDao.queryTag(article.getId());
+            article.setTagList(tags);
+
+            List<Category> category = CategoryDao.query(article.getCategoryId(),CategoryDao.FINDBYCATEGORYID);
+            if (!category.isEmpty()) {
+                article.setCategoryName(category.get(0).getCategoryName());
+            }
+
+            list.add(article);
         }
         return list;
     }

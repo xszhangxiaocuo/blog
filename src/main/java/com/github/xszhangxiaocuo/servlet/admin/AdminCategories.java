@@ -2,16 +2,13 @@ package com.github.xszhangxiaocuo.servlet.admin;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.github.xszhangxiaocuo.dao.ArticleDao;
 import com.github.xszhangxiaocuo.dao.CategoryDao;
 import com.github.xszhangxiaocuo.entity.Err.ErrCode;
 import com.github.xszhangxiaocuo.entity.Err.ErrMessage;
 import com.github.xszhangxiaocuo.entity.Result;
-import com.github.xszhangxiaocuo.entity.req.admin.AdminArticlesPOSTReq;
 import com.github.xszhangxiaocuo.entity.req.admin.AdminCategoriesPOSTReq;
-import com.github.xszhangxiaocuo.entity.resp.admin.AdminArticleGETVO;
-import com.github.xszhangxiaocuo.entity.resp.admin.AdminCategoriesGETVO;
-import com.github.xszhangxiaocuo.entity.sql.Article;
+import com.github.xszhangxiaocuo.entity.req.admin.AdminDELETEReq;
+import com.github.xszhangxiaocuo.entity.resp.admin.AdminListGETVO;
 import com.github.xszhangxiaocuo.entity.sql.Category;
 import com.github.xszhangxiaocuo.utils.JsonUtil;
 import com.github.xszhangxiaocuo.utils.TimeUtil;
@@ -30,6 +27,7 @@ public class AdminCategories extends HttpServlet {
     int CODE;//业务代码
     int CURRENT=0;//当前页数
     int pageSize=5;//默认每一页大小为5
+    int count=0;//总记录数
     int categoriesId=0;//分类id
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -48,14 +46,15 @@ public class AdminCategories extends HttpServlet {
 
                 //还没做jwt解析验证用户，先查询全部
                 categories = CategoryDao.query(0,CategoryDao.FINDALL,CURRENT,pageSize);
-                if (categories==null||categories.size()==0){
+                count = CategoryDao.query(0,CategoryDao.FINDALL).size();
+                if (categories.isEmpty()){
                     //分类列表为空
                     CODE= ErrCode.ERROR_ART_IS_NULL.getCode();
                     result.failure(CODE, ErrMessage.getMsg(CODE));
                 }else {
-                    AdminCategoriesGETVO categoriesGETVO = new AdminCategoriesGETVO();
+                    AdminListGETVO categoriesGETVO = new AdminListGETVO();
                     categoriesGETVO.setRecordList(categories);
-                    categoriesGETVO.setCount(categories.size());
+                    categoriesGETVO.setCount(count);
                     result.success(categoriesGETVO);
                 }
 
@@ -82,33 +81,28 @@ public class AdminCategories extends HttpServlet {
             AdminCategoriesPOSTReq postReq = JSON.toJavaObject(json, AdminCategoriesPOSTReq.class);
             List<Category> categories = CategoryDao.query(postReq.getId(),CategoryDao.FINDBYCATEGORYID);
             Timestamp now = TimeUtil.getTimeStamp();
-            if (categories==null) {//分类不存在就插入数据
-                Category category = new Category(now);
+            Category category;
+            if (categories.isEmpty()) {//分类不存在就插入数据
+                category = new Category(now);
 
                 category.setCategoryName(postReq.getCategoryName());
-                category.setCreateTime(postReq.getCreateTime());
                 category.setUserId(postReq.getUserId());
 
                 CODE = CategoryDao.insert(category).getCode();
-                if (CODE == ErrCode.OK.getCode()) {
-                    result.success();
-                } else {
-                    result.failure(CODE, ErrMessage.getMsg(CODE));
-                }
             }else {//分类已经存在就更新数据
-                Category category = categories.get(0);
+                category = categories.get(0);
                 category.setUserId(postReq.getUserId());
                 category.setId(postReq.getId());
                 category.setCategoryName(postReq.getCategoryName());
                 category.setCreateTime(postReq.getCreateTime());
 
                 CODE = CategoryDao.update(category).getCode();
-                if (CODE == ErrCode.OK.getCode()) {
-                    result.success();
-                }else {
-                    result.failure(CODE,ErrMessage.getMsg(CODE));
-                }
 
+            }
+            if (CODE == ErrCode.OK.getCode()) {
+                result.success();
+            } else {
+                result.failure(CODE, ErrMessage.getMsg(CODE));
             }
         }
         JsonUtil.returnJSON(response,JsonUtil.beanToJson(result));
@@ -117,6 +111,33 @@ public class AdminCategories extends HttpServlet {
     @Override
     protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //接收分类id数组进行删除
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
+
+        // 获取request中对数据转换为JSON对象
+        JSONObject json = JsonUtil.parseToJson(request);
+        // 构建响应数据对象
+        Result result = new Result<>();
+
+        if (json!=null) {
+            // 使用JSON对象中的数据
+            // 将json绑定到AdminDELETEReq对象
+            AdminDELETEReq delReq = JSON.toJavaObject(json, AdminDELETEReq.class);
+            int[] idList = delReq.getData();
+            for (Integer i : idList) {
+                CODE = CategoryDao.delete(i).getCode();
+                if (CODE!=ErrCode.OK.getCode()){
+                    //删除失败
+                    break;
+                }
+            }
+            if (CODE==ErrCode.OK.getCode()){
+                result.success();
+            }else {
+                result.failure(CODE,ErrMessage.getMsg(CODE));
+            }
+        }
+        JsonUtil.returnJSON(response,JsonUtil.beanToJson(result));
     }
 
     @Override

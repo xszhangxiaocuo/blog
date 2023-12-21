@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Article extends Universal{
     public static String updateTimeName = "update_time";
@@ -37,6 +38,12 @@ public class Article extends Universal{
     private byte isDraft;//是否为草稿
     @JsonProperty("isDelete")
     private byte isDelete;//是否被删除
+
+    @JsonProperty("categoryName")
+    private String categoryName;//分类名
+
+    @JsonProperty("tagList")
+    private List<Tag> tagList;//标签列表
 
     public Article(){};
 
@@ -114,5 +121,21 @@ public class Article extends Universal{
 
     public void setIsDelete(byte isDelete) {
         this.isDelete = isDelete;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public List<Tag> getTagList() {
+        return tagList;
+    }
+
+    public void setTagList(List<Tag> tagList) {
+        this.tagList = tagList;
     }
 }

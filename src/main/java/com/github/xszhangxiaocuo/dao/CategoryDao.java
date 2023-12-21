@@ -5,6 +5,7 @@ import com.github.xszhangxiaocuo.entity.sql.Article;
 import com.github.xszhangxiaocuo.entity.sql.Category;
 import com.github.xszhangxiaocuo.utils.DBUtil;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -129,16 +130,7 @@ public class CategoryDao {
 
             db.rs = db.preStmt.executeQuery();
 
-            while (db.rs.next()) {
-              Category category = new Category();
-              category.setId(db.rs.getInt(Category.idName));
-              category.setCategoryName(db.rs.getString(Category.categoryNameName));
-              category.setCreateTime(db.rs.getTimestamp(Category.createTimeName));
-              category.setUserId(db.rs.getInt(Category.userIdName));
-
-              list.add(category);
-            }
-            return list;
+            return getCategories(list);
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -178,16 +170,7 @@ public class CategoryDao {
 
             db.rs = db.preStmt.executeQuery();
 
-            while (db.rs.next()) {
-                Category category = new Category();
-                category.setId(db.rs.getInt(Category.idName));
-                category.setCategoryName(db.rs.getString(Category.categoryNameName));
-                category.setCreateTime(db.rs.getTimestamp(Category.createTimeName));
-                category.setUserId(db.rs.getInt(Category.userIdName));
-
-                list.add(category);
-            }
-            return list;
+            return getCategories(list);
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -196,4 +179,16 @@ public class CategoryDao {
         return list;
     }
 
+    private static List<Category> getCategories(List<Category> list) throws SQLException {
+        while (db.rs.next()) {
+            Category category = new Category();
+            category.setId(db.rs.getInt(Category.idName));
+            category.setCategoryName(db.rs.getString(Category.categoryNameName));
+            category.setCreateTime(db.rs.getTimestamp(Category.createTimeName));
+            category.setUserId(db.rs.getInt(Category.userIdName));
+
+            list.add(category);
+        }
+        return list;
+    }
 }

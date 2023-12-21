@@ -16,13 +16,13 @@ public class BlogInfoVO {
     private String avatar;
 
     @JsonProperty("articleCount")
-    private String articleCount;
+    private int articleCount;
 
     @JsonProperty("categoryCount")
-    private String categoryCount;
+    private int categoryCount;
 
     @JsonProperty("tagCount")
-    private String tagCount;
+    private int tagCount;
 
     @JsonProperty("blogTitle")
     private String blogTitle;//博客标题
@@ -43,18 +43,6 @@ public class BlogInfoVO {
         return avatar;
     }
 
-    public String getArticleCount() {
-        return articleCount;
-    }
-
-    public String getCategoryCount() {
-        return categoryCount;
-    }
-
-    public String getTagCount() {
-        return tagCount;
-    }
-
     public void setId(int id) {
         this.id = id;
     }
@@ -71,17 +59,6 @@ public class BlogInfoVO {
         this.avatar = avatar;
     }
 
-    public void setArticleCount(String articleCount) {
-        this.articleCount = articleCount;
-    }
-
-    public void setCategoryCount(String categoryCount) {
-        this.categoryCount = categoryCount;
-    }
-
-    public void setTagCount(String tagCount) {
-        this.tagCount = tagCount;
-    }
 
     public String getBlogTitle() {
         return blogTitle;
@@ -89,5 +66,29 @@ public class BlogInfoVO {
 
     public void setBlogTitle(String blogTitle) {
         this.blogTitle = blogTitle;
+    }
+
+    public int getArticleCount() {
+        return articleCount;
+    }
+
+    public void setArticleCount(int articleCount) {
+        this.articleCount = articleCount;
+    }
+
+    public int getCategoryCount() {
+        return categoryCount;
+    }
+
+    public void setCategoryCount(int categoryCount) {
+        this.categoryCount = categoryCount;
+    }
+
+    public int getTagCount() {
+        return tagCount;
+    }
+
+    public void setTagCount(int tagCount) {
+        this.tagCount = tagCount;
     }
 }

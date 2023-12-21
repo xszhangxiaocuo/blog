@@ -7,7 +7,7 @@ import com.github.xszhangxiaocuo.entity.Err.ErrCode;
 import com.github.xszhangxiaocuo.entity.Err.ErrMessage;
 import com.github.xszhangxiaocuo.entity.Result;
 import com.github.xszhangxiaocuo.entity.req.admin.AdminArticlesPOSTReq;
-import com.github.xszhangxiaocuo.entity.resp.admin.AdminArticleGETVO;
+import com.github.xszhangxiaocuo.entity.resp.admin.AdminListGETVO;
 import com.github.xszhangxiaocuo.entity.sql.Article;
 import com.github.xszhangxiaocuo.utils.JsonUtil;
 import com.github.xszhangxiaocuo.utils.TimeUtil;
@@ -21,7 +21,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.List;
 
-@WebServlet(name = "adminUsers", value = "/admin/Users/*")
+@WebServlet(name = "adminUsers", value = "/admin/users/*")
 public class AdminUsers extends HttpServlet {
     int CODE;//业务代码
     int CURRENT=0;//当前页数
@@ -54,14 +54,14 @@ public class AdminUsers extends HttpServlet {
                 CURRENT = Integer.parseInt(request.getParameter("current"));
                 pageSize = Integer.parseInt(request.getParameter("size"));
 
-                //还没做jwt解析验证用户，先查询全部
+                //查询全部
                 articles = ArticleDao.query(0,ArticleDao.FINDALL,CURRENT,pageSize);
                 if (articles==null||articles.size()==0){
                     //文章列表为空
                     CODE= ErrCode.ERROR_ART_IS_NULL.getCode();
                     result.failure(CODE, ErrMessage.getMsg(CODE));
                 }else {
-                    AdminArticleGETVO articleVO = new AdminArticleGETVO();
+                    AdminListGETVO articleVO = new AdminListGETVO();
                     articleVO.setRecordList(articles);
                     articleVO.setCount(articles.size());
                     result.success(articleVO);

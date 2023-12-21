@@ -32,6 +32,7 @@ public class JsonUtil<T> {
 
         }catch (Exception e){
             logger.severe("json转换失败！");
+            e.printStackTrace();
         }
 
         // 将读取的数据转换为JSON对象

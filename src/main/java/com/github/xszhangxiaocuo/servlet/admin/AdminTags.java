@@ -2,17 +2,13 @@ package com.github.xszhangxiaocuo.servlet.admin;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
-import com.github.xszhangxiaocuo.dao.CategoryDao;
 import com.github.xszhangxiaocuo.dao.TagDao;
 import com.github.xszhangxiaocuo.entity.Err.ErrCode;
 import com.github.xszhangxiaocuo.entity.Err.ErrMessage;
 import com.github.xszhangxiaocuo.entity.Result;
-import com.github.xszhangxiaocuo.entity.req.admin.AdminCategoriesPOSTReq;
-import com.github.xszhangxiaocuo.entity.req.admin.AdminTagDELETEReq;
+import com.github.xszhangxiaocuo.entity.req.admin.AdminDELETEReq;
 import com.github.xszhangxiaocuo.entity.req.admin.AdminTagPOSTReq;
-import com.github.xszhangxiaocuo.entity.resp.admin.AdminCategoriesGETVO;
-import com.github.xszhangxiaocuo.entity.resp.admin.AdminTagGETVO;
-import com.github.xszhangxiaocuo.entity.sql.Category;
+import com.github.xszhangxiaocuo.entity.resp.admin.AdminListGETVO;
 import com.github.xszhangxiaocuo.entity.sql.Tag;
 import com.github.xszhangxiaocuo.utils.JsonUtil;
 import com.github.xszhangxiaocuo.utils.TimeUtil;
@@ -31,6 +27,7 @@ public class AdminTags extends HttpServlet {
     int CODE;//业务代码
     int CURRENT=0;//当前页数
     int pageSize=5;//默认每一页大小为5
+    int count=0;//总记录数
     int categoriesId=0;//标签id
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -49,14 +46,15 @@ public class AdminTags extends HttpServlet {
 
                 //还没做jwt解析验证用户，先查询全部
                 tags = TagDao.query(0,TagDao.FINDALL,CURRENT,pageSize);
+                count = TagDao.query(0,TagDao.FINDALL).size();
                 if (tags==null||tags.size()==0){
                     //标签列表为空
                     CODE= ErrCode.ERROR_ART_IS_NULL.getCode();
                     result.failure(CODE, ErrMessage.getMsg(CODE));
                 }else {
-                    AdminTagGETVO tagGETVO = new AdminTagGETVO();
+                    AdminListGETVO tagGETVO = new AdminListGETVO();
                     tagGETVO.setRecordList(tags);
-                    tagGETVO.setCount(tags.size());
+                    tagGETVO.setCount(count);
                     result.success(tagGETVO);
                 }
 
@@ -89,7 +87,6 @@ public class AdminTags extends HttpServlet {
 
                 tag.setTagName(postReq.getTagName());
                 tag.setUserId(postReq.getUserId());
-
                 CODE = TagDao.insert(tag).getCode();
             }else {//标签已经存在就更新数据
                 tag = tags.get(0);
@@ -97,7 +94,6 @@ public class AdminTags extends HttpServlet {
                 tag.setId(postReq.getId());
                 tag.setTagName(postReq.getTagName());
                 tag.setCreateTime(postReq.getCreateTime());
-
                 CODE = TagDao.update(tag).getCode();
 
             }
@@ -123,10 +119,10 @@ public class AdminTags extends HttpServlet {
 
         if (json!=null) {
             // 使用JSON对象中的数据
-            // 将json绑定到AdminTagDELETEReq对象
-            AdminTagDELETEReq delReq = JSON.toJavaObject(json, AdminTagDELETEReq.class);
-            int[] tagIdList = delReq.getData();
-            for (Integer i : tagIdList) {
+            // 将json绑定到AdminDELETEReq对象
+            AdminDELETEReq delReq = JSON.toJavaObject(json, AdminDELETEReq.class);
+            int[] idList = delReq.getData();
+            for (Integer i : idList) {
                 CODE = TagDao.delete(i).getCode();
                 if (CODE!=ErrCode.OK.getCode()){
                     //删除失败

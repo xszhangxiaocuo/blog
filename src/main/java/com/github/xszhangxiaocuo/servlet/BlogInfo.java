@@ -2,6 +2,9 @@ package com.github.xszhangxiaocuo.servlet;
 
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
+import com.github.xszhangxiaocuo.dao.ArticleDao;
+import com.github.xszhangxiaocuo.dao.CategoryDao;
+import com.github.xszhangxiaocuo.dao.TagDao;
 import com.github.xszhangxiaocuo.dao.UserInfoDao;
 import com.github.xszhangxiaocuo.entity.Err.ErrCode;
 import com.github.xszhangxiaocuo.entity.Err.ErrMessage;
@@ -50,15 +53,14 @@ public class BlogInfo extends HttpServlet {
             blogInfoVO.setNickname(nickname);
             blogInfoVO.setAvatar(userInfo.getAvatar());
             blogInfoVO.setIntro(userInfo.getIntro());
-            //先不做统计
-            blogInfoVO.setArticleCount("1");
-            blogInfoVO.setTagCount("0");
-            blogInfoVO.setCategoryCount("0");
+            blogInfoVO.setArticleCount(ArticleDao.query(0,ArticleDao.FINDALL).size());
+            blogInfoVO.setTagCount(TagDao.query(0,TagDao.FINDALL).size());
+            blogInfoVO.setCategoryCount(CategoryDao.query(0,CategoryDao.FINDALL).size());
             blogInfoVO.setBlogTitle(userInfo.getBlogTitle());
 
             result.success(blogInfoVO);
         }
-        JsonUtil.returnJSON(response,(JSONObject) JsonUtil.beanToJson(result));
+        JsonUtil.returnJSON(response, JsonUtil.beanToJson(result));
     }
 
     @Override
