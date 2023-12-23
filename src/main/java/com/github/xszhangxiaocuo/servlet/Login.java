@@ -14,6 +14,7 @@ import com.github.xszhangxiaocuo.utils.JsonUtil;
 import com.github.xszhangxiaocuo.utils.JwtUtil;
 import com.github.xszhangxiaocuo.entity.req.LoginReq;
 import com.github.xszhangxiaocuo.entity.resp.LoginVO;
+import com.github.xszhangxiaocuo.utils.TimeUtil;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -83,11 +84,15 @@ public class Login extends HttpServlet {
                 loginVO.setToken(token.getToken());
                 loginVO.setId(userAuth.getId());
                 loginVO.setUserInfoId(userAuth.getUserInfoId());
-                loginVO.setNickname(userAuth.getUsername());
+                loginVO.setNickname(UserInfoDao.query(userAuth.getUserInfoId()).getNickname());
                 loginVO.setAvatar(userInfo.getAvatar());
                 loginVO.setIntro(userInfo.getIntro());
                 loginVO.setWebSite(userInfo.getWebsite());
                 loginVO.setUserRole(userInfo.getUserRole());
+                loginVO.setIsSilence(userInfo.getIsSilence());
+                //更新上次登录时间
+                userAuth.setLastLoginTime(TimeUtil.getTimeStamp());
+                UserAuthDao.update(userAuth);
 
                 result.success(loginVO);
                 //token放入session

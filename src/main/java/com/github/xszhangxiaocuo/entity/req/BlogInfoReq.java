@@ -6,14 +6,14 @@ import javax.validation.constraints.NotBlank;
 
 public class BlogInfoReq {
     @NotBlank(message = "用户名不能为空")//用于确保相应的字段不为空，并提供一个错误消息。
-    @JsonProperty("nickname")//指定 JSON 中的字段名称
-    private String nickname;
+    @JsonProperty("userId")//指定 JSON 中的字段名称
+    private String userId;
 
-    public String getNickname() {
-        return nickname;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 
 public class ArticleTagDao {
     static Logger logger = Logger.getLogger(ArticleTagDao.class.getName());
-    static DBUtil db = new DBUtil();//数据库连接
 
     public static int FINDALL = 0;//查找所有用户的标签
     public static int FINDBYARTID = 1;//查找一个文章的所有标签
@@ -27,6 +26,7 @@ public class ArticleTagDao {
      * @return
      */
     public static ErrCode insert(ArticleTag data) {
+        DBUtil db = new DBUtil();//数据库连接
         try {
             db.getConnection();
 
@@ -56,6 +56,7 @@ public class ArticleTagDao {
      * @return
      */
     public static ErrCode delete(int key,int type) {
+        DBUtil db = new DBUtil();//数据库连接
         try {
             db.getConnection();
             String sql = "DELETE FROM article_tag WHERE id = ?";
@@ -89,6 +90,7 @@ public class ArticleTagDao {
      * @return
      */
     public static ErrCode update(ArticleTag data) {
+        DBUtil db = new DBUtil();//数据库连接
         try {
             db.getConnection();
             String sql = "UPDATE article_tag SET " +
@@ -120,6 +122,7 @@ public class ArticleTagDao {
      * @return
      */
     public static List<ArticleTag> query(int key, int type) {
+        DBUtil db = new DBUtil();//数据库连接
         List<ArticleTag> list = new ArrayList<>();
         try {
             db.getConnection();
@@ -158,6 +161,7 @@ public class ArticleTagDao {
      * @return
      */
     public static List<ArticleTag> query(int key, int type, int page, int pageSize) {
+        DBUtil db = new DBUtil();//数据库连接
         List<ArticleTag> list = new ArrayList<>();
         try {
             db.getConnection();
@@ -193,6 +197,7 @@ public class ArticleTagDao {
     }
 
     private static List<ArticleTag> getTags(List<ArticleTag> list) throws SQLException {
+        DBUtil db = new DBUtil();//数据库连接
         while (db.rs.next()) {
             ArticleTag at = new ArticleTag();
             at.setId(db.rs.getInt(ArticleTag.tagIdName));
@@ -210,6 +215,7 @@ public class ArticleTagDao {
      * @return
      */
     public static List<Tag> queryTag(int key) {
+        DBUtil db = new DBUtil();//数据库连接
         List<Tag> list = new ArrayList<>();
         try {
             db.getConnection();
@@ -244,6 +250,7 @@ public class ArticleTagDao {
      * @return
      */
     public static List<Article> queryArticle(int key) {
+        DBUtil db = new DBUtil();//数据库连接
         List<Article> list = new ArrayList<>();
         try {
             db.getConnection();
@@ -257,7 +264,7 @@ public class ArticleTagDao {
             db.rs = db.preStmt.executeQuery();
 
             while (db.rs.next()){
-                List<Article> articles = ArticleDao.query(db.rs.getInt(ArticleTag.articleIdName),ArticleDao.FINDBYARTID);
+                List<Article> articles = ArticleDao.query(db.rs.getInt(ArticleTag.articleIdName),ArticleDao.FINDBYARTID,(byte)0,(byte)0);
                 if (!articles.isEmpty()){
                     list.add(articles.get(0));
                 }

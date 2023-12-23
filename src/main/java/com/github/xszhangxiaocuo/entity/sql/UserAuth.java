@@ -11,9 +11,6 @@ import java.util.Map;
  * 用户账户信息，user_auth表
  */
 public class UserAuth extends Universal{
-    //映射字段与字段名
-    private static final Map<Integer, Object> columnName = new HashMap<>();
-
     public static String userInfoIdName = "user_info_id";
     public static String usernameName = "username";
     public static String passwordName = "password";
@@ -22,7 +19,7 @@ public class UserAuth extends Universal{
     public static String ipSourceName = "ip_source";
     public static String lastLoginTimeName = "last_login_time";
 
-    @JsonProperty("user_info_id")
+    @JsonProperty("userInfoId")
     private int userInfoId;//用户信息ID
 
     @JsonProperty("username")
@@ -31,17 +28,17 @@ public class UserAuth extends Universal{
     @JsonProperty("password")
     private String password;//密码
 
-    @JsonProperty("login_type")
+    @JsonProperty("loginType")
     private byte loginType;//登录类型
 
-    @JsonProperty("ip_addr")
+    @JsonProperty("ipAddr")
     private String ipAddress;//登录IP地址
 
-    @JsonProperty("ip_source")
+    @JsonProperty("ipSource")
     private String ipSource;//IP来源
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
-    @JsonProperty("last_login_time")
+    @JsonProperty("lastLoginTime")
     private Timestamp lastLoginTime;//上次登录时间
 
     public UserAuth(){};

@@ -91,6 +91,7 @@ public class AdminLogin extends HttpServlet {
                 loginVO.setIntro(userInfo.getIntro());
                 loginVO.setWebSite(userInfo.getWebsite());
                 loginVO.setUserRole(userInfo.getUserRole());
+                loginVO.setBlogTitle(userInfo.getBlogTitle());
 
                 result.success(loginVO);
                 //token放入session

@@ -22,26 +22,22 @@ import java.io.IOException;
 @WebServlet(name = "BlogInfo", value = "/bloginfo")
 public class BlogInfo extends HttpServlet {
     int CODE;
+    byte isDelete=0;//默认查询未删除文章
+    byte isDraft=0;//默认查询已发布文章
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        String nickname = "";
-        // 获取request中对数据转换为JSON对象
-        JSONObject json = JsonUtil.parseToJson(request);
+        int userId = 0;
         // 构建响应数据对象
         Result result = new Result<>();
 
-        if (json!=null) {
-            // 使用JSON对象中的数据
-            // 将json绑定到LoginReq对象
-            BlogInfoReq blogInfoReq = JSON.toJavaObject(json, BlogInfoReq.class);
-            nickname = blogInfoReq.getNickname();
-            System.out.println("nickname："+nickname);
-        }
-        nickname = request.getParameter("nickname");
-        UserInfo userInfo = UserInfoDao.query(nickname);
+            String blogInfoReq = request.getParameter("userId");
+            if (blogInfoReq!=null&&!blogInfoReq.isEmpty()){
+                userId = Integer.parseInt(blogInfoReq);
+            }
+        UserInfo userInfo = UserInfoDao.query(userId);
         if (userInfo==null){
             //用户不存在
             CODE = ErrCode.ERROR_USER_NOT_EXIST.getCode();
@@ -50,12 +46,12 @@ public class BlogInfo extends HttpServlet {
             BlogInfoVO blogInfoVO = new BlogInfoVO();
 
             blogInfoVO.setId(userInfo.getId());
-            blogInfoVO.setNickname(nickname);
+            blogInfoVO.setNickname(userInfo.getNickname());
             blogInfoVO.setAvatar(userInfo.getAvatar());
             blogInfoVO.setIntro(userInfo.getIntro());
-            blogInfoVO.setArticleCount(ArticleDao.query(0,ArticleDao.FINDALL).size());
-            blogInfoVO.setTagCount(TagDao.query(0,TagDao.FINDALL).size());
-            blogInfoVO.setCategoryCount(CategoryDao.query(0,CategoryDao.FINDALL).size());
+            blogInfoVO.setArticleCount(ArticleDao.query(userInfo.getId(),ArticleDao.FINDBYUSERID,isDelete,isDraft).size());
+            blogInfoVO.setTagCount(TagDao.query(userInfo.getId(),TagDao.FINDBYUSERID).size());
+            blogInfoVO.setCategoryCount(CategoryDao.query(userInfo.getId(),CategoryDao.FINDBYUSERID).size());
             blogInfoVO.setBlogTitle(userInfo.getBlogTitle());
 
             result.success(blogInfoVO);

@@ -13,7 +13,6 @@ import java.util.logging.Logger;
 
 public class CategoryDao {
     static Logger logger = Logger.getLogger(CategoryDao.class.getName());
-    static DBUtil db = new DBUtil();//数据库连接
 
     public static int FINDALL = 0;//查找所有用户的分类
     public static int FINDBYUSERID = 1;//查找一个用户的所有分类
@@ -25,6 +24,7 @@ public class CategoryDao {
      * @return
      */
     public static ErrCode insert(Category data) {
+        DBUtil db = new DBUtil();//数据库连接
         try {
             db.getConnection();
 
@@ -54,6 +54,7 @@ public class CategoryDao {
      * @return
      */
     public static ErrCode delete(int key) {
+        DBUtil db = new DBUtil();//数据库连接
         try {
             db.getConnection();
             String sql = "DELETE FROM category WHERE id = ?";
@@ -79,6 +80,7 @@ public class CategoryDao {
      * @return
      */
     public static ErrCode update(Category data) {
+        DBUtil db = new DBUtil();//数据库连接
         try {
             db.getConnection();
             String sql = "UPDATE category SET " +
@@ -110,6 +112,7 @@ public class CategoryDao {
      * @return
      */
     public static List<Category> query(int key,int type) {
+        DBUtil db = new DBUtil();//数据库连接
         List<Category> list = new ArrayList<>();
         try {
             db.getConnection();
@@ -130,7 +133,7 @@ public class CategoryDao {
 
             db.rs = db.preStmt.executeQuery();
 
-            return getCategories(list);
+            return getCategories(db,list);
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -147,6 +150,7 @@ public class CategoryDao {
      * @return
      */
     public static List<Category> query(int key,int type,int page,int pageSize) {
+        DBUtil db = new DBUtil();//数据库连接
         List<Category> list = new ArrayList<>();
         try {
             db.getConnection();
@@ -170,7 +174,7 @@ public class CategoryDao {
 
             db.rs = db.preStmt.executeQuery();
 
-            return getCategories(list);
+            return getCategories(db,list);
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -179,7 +183,7 @@ public class CategoryDao {
         return list;
     }
 
-    private static List<Category> getCategories(List<Category> list) throws SQLException {
+    private static List<Category> getCategories(DBUtil db,List<Category> list) throws SQLException {
         while (db.rs.next()) {
             Category category = new Category();
             category.setId(db.rs.getInt(Category.idName));

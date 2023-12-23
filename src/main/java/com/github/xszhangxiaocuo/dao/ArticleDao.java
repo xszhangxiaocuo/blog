@@ -14,7 +14,6 @@ import java.util.logging.Logger;
 
 public class ArticleDao {
     static Logger logger = Logger.getLogger(ArticleDao.class.getName());
-    static DBUtil db = new DBUtil();//数据库连接
 
     public static int FINDALL = 0;//查找所有用户文章
     public static int FINDBYUSERID = 1;//查找一个用户的所有文章
@@ -26,6 +25,7 @@ public class ArticleDao {
      * @return
      */
     public static ErrCode insert(Article data) {
+        DBUtil db = new DBUtil();//数据库连接
         try {
             db.getConnection();
 
@@ -62,6 +62,7 @@ public class ArticleDao {
      * @return
      */
     public static ErrCode delete(int key) {
+        DBUtil db = new DBUtil();//数据库连接
         try {
             db.getConnection();
             String sql = "update article set is_delete=1 where id = ?";//修改is_delete标记为删除
@@ -87,6 +88,7 @@ public class ArticleDao {
      * @return
      */
     public static ErrCode update(Article data) {
+        DBUtil db = new DBUtil();//数据库连接
         try {
             db.getConnection();
             String sql = "UPDATE article SET " +
@@ -125,28 +127,34 @@ public class ArticleDao {
      * @param type 查询类型
      * @return
      */
-    public static List<Article> query(int key,int type) {
+    public static List<Article> query(int key,int type,byte isDelete,byte isDraft) {
+        DBUtil db = new DBUtil();//数据库连接
         List<Article> list = new ArrayList<>();
         try {
             db.getConnection();
 
-            String sql = "SELECT * FROM article WHERE is_draft=0 AND is_delete=0";//查找所有未被删除且不是草稿的文章
+            String sql = "SELECT * FROM article WHERE is_draft=? AND is_delete=?";//查找所有未被删除且不是草稿的文章
 
             if (type==FINDBYUSERID){
-                sql="SELECT * FROM article WHERE user_id=? AND is_draft=0 AND is_delete=0";
+                sql="SELECT * FROM article WHERE user_id=? AND is_draft=? AND is_delete=?";
             }else if (type==FINDBYARTID){
-                sql="SELECT * FROM article WHERE id=? AND is_draft=0 AND is_delete=0";
+                sql="SELECT * FROM article WHERE id=? AND is_draft=? AND is_delete=?";
             }
 
             db.preStmt = db.conn.prepareStatement(sql);
 
             if (type!=FINDALL) {
                 db.preStmt.setInt(1, key);
+                db.preStmt.setByte(2,isDraft);
+                db.preStmt.setByte(3,isDelete);
+            }else {
+                db.preStmt.setByte(1,isDraft);
+                db.preStmt.setByte(2,isDelete);
             }
 
             db.rs = db.preStmt.executeQuery();
-
-            return getList(list);
+            list = getList(db,list);
+            return list;
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -162,31 +170,37 @@ public class ArticleDao {
      * @param pageSize 每一页的大小
      * @return
      */
-    public static List<Article> query(int key,int type,int page,int pageSize) {
+    public static List<Article> query(int key,int type,byte isDelete,byte isDraft,int page,int pageSize) {
+        DBUtil db = new DBUtil();//数据库连接
         List<Article> list = new ArrayList<>();
         try {
             db.getConnection();
 
-            String sql = "SELECT * FROM article WHERE is_draft=0 AND is_delete=0 LIMIT ? OFFSET ?";//查找所有未被删除且不是草稿的文章
+            String sql = "SELECT * FROM article WHERE is_draft=? AND is_delete=? LIMIT ? OFFSET ?";//查找所有未被删除且不是草稿的文章
 
             if (type==FINDBYUSERID){
-                sql="SELECT * FROM article WHERE user_id=? AND is_delete=0 AND is_draft=0 LIMIT ? OFFSET ?";
+                sql="SELECT * FROM article WHERE user_id=? AND is_delete=? AND is_draft=? LIMIT ? OFFSET ?";
             }
 
             db.preStmt = db.conn.prepareStatement(sql);
             if (type!=FINDALL) {
                 db.preStmt.setInt(1, key);
-                db.preStmt.setInt(2, pageSize);
-                db.preStmt.setInt(3, (page - 1) * pageSize);
+                db.preStmt.setByte(2,isDraft);
+                db.preStmt.setByte(3,isDelete);
+                db.preStmt.setInt(4, pageSize);
+                db.preStmt.setInt(5, (page - 1) * pageSize);
             }else {
-                db.preStmt.setInt(1, pageSize);
-                db.preStmt.setInt(2, (page - 1) * pageSize);
+                db.preStmt.setByte(1,isDraft);
+                db.preStmt.setByte(2,isDelete);
+                db.preStmt.setInt(3, pageSize);
+                db.preStmt.setInt(4, (page - 1) * pageSize);
 
             }
 
             db.rs = db.preStmt.executeQuery();
 
-            return getList(list);
+            list = getList(db,list);
+            return list;
         }catch (Exception e){
             e.printStackTrace();
         }finally {
@@ -195,7 +209,41 @@ public class ArticleDao {
         return list;
     }
 
-    private static List<Article> getList(List<Article> list) throws SQLException {
+    /**
+     * 通过categoryid查找指定用户的文章
+     * @param userId
+     * @param categoryId
+     * @param isDelete
+     * @param isDraft
+     * @return
+     */
+    public static List<Article> queryByCategory(int userId,int categoryId,byte isDelete,byte isDraft) {
+        DBUtil db = new DBUtil();//数据库连接
+        List<Article> list = new ArrayList<>();
+        try {
+            db.getConnection();
+
+            String sql = "SELECT * FROM article WHERE user_id=? AND category_id=? AND is_draft=? AND is_delete=?";
+
+            db.preStmt = db.conn.prepareStatement(sql);
+
+                db.preStmt.setInt(1, userId);
+                db.preStmt.setInt(2,categoryId);
+                db.preStmt.setByte(3, isDraft);
+                db.preStmt.setByte(4, isDelete);
+
+            db.rs = db.preStmt.executeQuery();
+            list = getList(db,list);
+            return list;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            db.close();
+        }
+        return list;
+    }
+
+    private static List<Article> getList(DBUtil db,List<Article> list) throws SQLException {
         while (db.rs.next()) {
             Article article = new Article();
             article.setId(db.rs.getInt(Article.idName));
@@ -217,6 +265,8 @@ public class ArticleDao {
             if (!category.isEmpty()) {
                 article.setCategoryName(category.get(0).getCategoryName());
             }
+
+            article.setNickname(UserInfoDao.query(article.getUserId()).getNickname());
 
             list.add(article);
         }

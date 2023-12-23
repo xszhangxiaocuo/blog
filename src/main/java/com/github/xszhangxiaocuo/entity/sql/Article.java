@@ -45,6 +45,10 @@ public class Article extends Universal{
     @JsonProperty("tagList")
     private List<Tag> tagList;//标签列表
 
+
+    @JsonProperty("nickname")
+    private String nickname;//作者昵称
+
     public Article(){};
 
     public Article(Timestamp now){
@@ -135,7 +139,23 @@ public class Article extends Universal{
         return tagList;
     }
 
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+    }
+
     public void setTagList(List<Tag> tagList) {
         this.tagList = tagList;
+    }
+
+    public static String getIsDeleteName() {
+        return isDeleteName;
+    }
+
+    public static void setIsDeleteName(String isDeleteName) {
+        Article.isDeleteName = isDeleteName;
     }
 }

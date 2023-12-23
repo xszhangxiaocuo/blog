@@ -111,7 +111,4 @@ public class AdminArticlesPOSTReq {
         return userId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
 }

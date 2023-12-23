@@ -49,16 +49,20 @@ public enum ErrCode {
     ERROR_CATE_NAME_USED(3001),
     ERROR_CATE_NOT_EXIST(3002),
     ERROR_CATE_ART_EXIST(3003),
+    ERROR_CATEGORY_IS_NULL(3004),
+
     /**
      * code= 40... 标签模块的错误
      */
     ERROR_TAG_EXIST(4001),
     ERROR_TAG_NOT_EXIST(4002),
     ERROR_TAG_ART_EXIST(4003),
+    ERROR_TAG_IS_NULL(4004),
     /**
      * code=50... 评论模块的错误
      */
     ERROR_COMMENT_NOT_EXIST(5001),
+    ERROR_COMMENT_IS_NULL(5002),
     /**
      * code=60... 权限模块的错误
      */

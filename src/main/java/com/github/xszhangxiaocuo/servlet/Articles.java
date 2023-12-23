@@ -1,6 +1,7 @@
 package com.github.xszhangxiaocuo.servlet;
 
 import com.github.xszhangxiaocuo.dao.ArticleDao;
+import com.github.xszhangxiaocuo.dao.UserInfoDao;
 import com.github.xszhangxiaocuo.entity.Err.ErrCode;
 import com.github.xszhangxiaocuo.entity.Err.ErrMessage;
 import com.github.xszhangxiaocuo.entity.Result;
@@ -21,6 +22,9 @@ public class Articles extends HttpServlet {
     int CURRENT=0;//当前页数
     int pageSize=5;//每一页五篇文章
     int articleId=0;//文章id
+    byte isDelete=0;//默认查询未删除文章
+    byte isDraft=0;//默认查询已发布文章
+    int userId=0;//用户id
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
@@ -33,7 +37,7 @@ public class Articles extends HttpServlet {
             if (pathInfo != null) {//不为空表示获取特定文章信息
                 pathInfo = pathInfo.replaceFirst("^/", "");//删除第一个“/”
                 articleId= Integer.parseInt(pathInfo);
-                articles = ArticleDao.query(articleId,ArticleDao.FINDBYARTID);
+                articles = ArticleDao.query(articleId,ArticleDao.FINDBYARTID,isDelete,isDraft);
                 if (articles.size()==0){
                     //文章不存在
                     CODE= ErrCode.ERROR_ART_NOT_EXIST.getCode();
@@ -42,9 +46,16 @@ public class Articles extends HttpServlet {
                     result.success(articles.get(0));
                 }
             }else {//获取所有文章
+                userId=0;
                 CURRENT = Integer.parseInt(request.getParameter("current"));//获取当前页数
-                //还没做jwt解析验证用户，先查询全部
-                articles = ArticleDao.query(0,ArticleDao.FINDALL,CURRENT,pageSize);
+                if (request.getParameter("userId")!=null) {
+                    userId = Integer.parseInt(request.getParameter("userId"));//获取userid
+                }
+                if (userId==0) {
+                    articles = ArticleDao.query(0, ArticleDao.FINDALL, isDelete, isDraft, CURRENT, pageSize);
+                }else {
+                    articles = ArticleDao.query(userId,ArticleDao.FINDBYUSERID,isDelete,isDraft,CURRENT,pageSize);
+                }
                 if (articles.size()==0){
                     //文章列表为空
                     CODE= ErrCode.ERROR_ART_IS_NULL.getCode();

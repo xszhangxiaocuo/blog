@@ -12,7 +12,6 @@ import java.util.logging.Logger;
 
 public class TagDao {
     static Logger logger = Logger.getLogger(TagDao.class.getName());
-    static DBUtil db = new DBUtil();//数据库连接
 
     public static int FINDALL = 0;//查找所有用户的标签
     public static int FINDBYUSERID = 1;//查找一个用户的所有标签
@@ -25,6 +24,7 @@ public class TagDao {
      * @return
      */
     public static ErrCode insert(Tag data) {
+        DBUtil db = new DBUtil();//数据库连接
         try {
             db.getConnection();
 
@@ -55,6 +55,7 @@ public class TagDao {
      * @return
      */
     public static ErrCode delete(int key) {
+        DBUtil db = new DBUtil();//数据库连接
         try {
             db.getConnection();
             String sql = "DELETE FROM tag WHERE id = ?";
@@ -81,6 +82,7 @@ public class TagDao {
      * @return
      */
     public static ErrCode update(Tag data) {
+        DBUtil db = new DBUtil();//数据库连接
         try {
             db.getConnection();
             String sql = "UPDATE tag SET " +
@@ -113,6 +115,7 @@ public class TagDao {
      * @return
      */
     public static List<Tag> query(int key, int type) {
+        DBUtil db = new DBUtil();//数据库连接
         List<Tag> list = new ArrayList<>();
         try {
             db.getConnection();
@@ -133,7 +136,7 @@ public class TagDao {
 
             db.rs = db.preStmt.executeQuery();
 
-            return getTags(list);
+            return getTags(db,list);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -151,6 +154,7 @@ public class TagDao {
      * @return
      */
     public static List<Tag> query(int key, int type, int page, int pageSize) {
+        DBUtil db = new DBUtil();//数据库连接
         List<Tag> list = new ArrayList<>();
         try {
             db.getConnection();
@@ -174,7 +178,7 @@ public class TagDao {
 
             db.rs = db.preStmt.executeQuery();
 
-            return getTags(list);
+            return getTags(db,list);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -183,7 +187,7 @@ public class TagDao {
         return list;
     }
 
-    private static List<Tag> getTags(List<Tag> list) throws SQLException {
+    private static List<Tag> getTags(DBUtil db,List<Tag> list) throws SQLException {
         while (db.rs.next()) {
             Tag tag = new Tag();
             tag.setId(db.rs.getInt(tag.idName));

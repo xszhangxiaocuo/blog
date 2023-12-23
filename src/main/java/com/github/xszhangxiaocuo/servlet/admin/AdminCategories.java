@@ -3,6 +3,7 @@ package com.github.xszhangxiaocuo.servlet.admin;
 import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.github.xszhangxiaocuo.dao.CategoryDao;
+import com.github.xszhangxiaocuo.dao.UserInfoDao;
 import com.github.xszhangxiaocuo.entity.Err.ErrCode;
 import com.github.xszhangxiaocuo.entity.Err.ErrMessage;
 import com.github.xszhangxiaocuo.entity.Result;
@@ -10,6 +11,7 @@ import com.github.xszhangxiaocuo.entity.req.admin.AdminCategoriesPOSTReq;
 import com.github.xszhangxiaocuo.entity.req.admin.AdminDELETEReq;
 import com.github.xszhangxiaocuo.entity.resp.admin.AdminListGETVO;
 import com.github.xszhangxiaocuo.entity.sql.Category;
+import com.github.xszhangxiaocuo.entity.sql.UserInfo;
 import com.github.xszhangxiaocuo.utils.JsonUtil;
 import com.github.xszhangxiaocuo.utils.TimeUtil;
 
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebServlet(name = "adminCategories", value = "/admin/categories")
@@ -29,34 +32,49 @@ public class AdminCategories extends HttpServlet {
     int pageSize=5;//默认每一页大小为5
     int count=0;//总记录数
     int categoriesId=0;//分类id
+    int userId = 0;//用户id
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         // 构建响应数据对象
         Result result = new Result<>();
-        List<Category> categories;
+        List<Category> categories = new ArrayList<>();
         try {
 //            String pathInfo = request.getPathInfo(); // 获取 URL 中的路径部分
 //            // 获取request中对数据转换为JSON对象
 //            JSONObject json = JsonUtil.parseToJson(request);
 
-                CURRENT = Integer.parseInt(request.getParameter("current"));
-                pageSize = Integer.parseInt(request.getParameter("size"));
+            CURRENT = Integer.parseInt(request.getParameter("current"));
+            pageSize = Integer.parseInt(request.getParameter("size"));
 
-                //还没做jwt解析验证用户，先查询全部
-                categories = CategoryDao.query(0,CategoryDao.FINDALL,CURRENT,pageSize);
-                count = CategoryDao.query(0,CategoryDao.FINDALL).size();
-                if (categories.isEmpty()){
-                    //分类列表为空
-                    CODE= ErrCode.ERROR_ART_IS_NULL.getCode();
-                    result.failure(CODE, ErrMessage.getMsg(CODE));
-                }else {
-                    AdminListGETVO categoriesGETVO = new AdminListGETVO();
-                    categoriesGETVO.setRecordList(categories);
-                    categoriesGETVO.setCount(count);
-                    result.success(categoriesGETVO);
-                }
+            if (request.getParameter("userId") != null) {
+                userId = Integer.parseInt(request.getParameter("userId"));
+            }
+            UserInfo userInfo = UserInfoDao.query(userId);
+            if (userInfo == null) {
+                CODE = ErrCode.ERROR_USER_NOT_EXIST.getCode();
+                result.failure(CODE, ErrMessage.getMsg(CODE));
+            } else if (userInfo.getUserRole().equals("管理员")) {
+                //管理员查询所有分类
+                categories = CategoryDao.query(0, CategoryDao.FINDALL, CURRENT, pageSize);
+                count = CategoryDao.query(0, CategoryDao.FINDALL).size();
+
+            }else if (userInfo.getUserRole().equals("普通用户")){
+                //查询用户自己的分类
+                categories = CategoryDao.query(userId,CategoryDao.FINDBYUSERID,CURRENT,pageSize);
+                count = CategoryDao.query(userId,CategoryDao.FINDBYUSERID).size();
+            }
+            if (categories.isEmpty()) {
+                //分类列表为空
+                CODE = ErrCode.ERROR_ART_IS_NULL.getCode();
+                result.failure(CODE, ErrMessage.getMsg(CODE));
+            } else {
+                AdminListGETVO categoriesGETVO = new AdminListGETVO();
+                categoriesGETVO.setRecordList(categories);
+                categoriesGETVO.setCount(count);
+                result.success(categoriesGETVO);
+            }
 
         }catch (Exception e){
             e.printStackTrace();
