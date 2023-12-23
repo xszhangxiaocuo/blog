@@ -10,6 +10,9 @@ public class AdminPUTReq {
     @JsonProperty("isDelete")
     private byte isDelete;
 
+    @JsonProperty("isDraft")
+    private byte isDraft;
+
     @JsonProperty("userId")
     private int userId;
 
@@ -35,5 +38,13 @@ public class AdminPUTReq {
 
     public void setUserId(int userId) {
         this.userId = userId;
+    }
+
+    public byte getIsDraft() {
+        return isDraft;
+    }
+
+    public void setIsDraft(byte isDraft) {
+        this.isDraft = isDraft;
     }
 }

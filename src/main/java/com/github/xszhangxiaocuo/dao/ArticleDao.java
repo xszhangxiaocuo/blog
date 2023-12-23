@@ -18,6 +18,9 @@ public class ArticleDao {
     public static int FINDALL = 0;//查找所有用户文章
     public static int FINDBYUSERID = 1;//查找一个用户的所有文章
     public static int FINDBYARTID = 2;//查找一篇文章
+    public static int FINDDELETE = 3;//查找被删除文章
+    public static int FINDDRAFT = 4;//查找草稿文章
+    public static int FINDPUBLISH = 5;//查找已发布文章
 
     /**
      * 传入Article对象进行插入，id自增
@@ -138,17 +141,20 @@ public class ArticleDao {
             if (type==FINDBYUSERID){
                 sql="SELECT * FROM article WHERE user_id=? AND is_draft=? AND is_delete=?";
             }else if (type==FINDBYARTID){
-                sql="SELECT * FROM article WHERE id=? AND is_draft=? AND is_delete=?";
+                sql="SELECT * FROM article WHERE id=? AND is_delete=?";
             }
 
             db.preStmt = db.conn.prepareStatement(sql);
 
-            if (type!=FINDALL) {
+            if (type==FINDALL) {
+                db.preStmt.setByte(1,isDraft);
+                db.preStmt.setByte(2,isDelete);
+            }else if (type==FINDBYUSERID){
                 db.preStmt.setInt(1, key);
                 db.preStmt.setByte(2,isDraft);
                 db.preStmt.setByte(3,isDelete);
-            }else {
-                db.preStmt.setByte(1,isDraft);
+            }else if (type==FINDBYARTID){
+                db.preStmt.setInt(1,key);
                 db.preStmt.setByte(2,isDelete);
             }
 
@@ -241,6 +247,126 @@ public class ArticleDao {
             db.close();
         }
         return list;
+    }
+
+    /**
+     * 只根据isDelete进行查询
+     * @param key
+     * @param type
+     * @param isDelete
+     * @return
+     */
+    public static List<Article> queryByDelete(int key,int type,byte isDelete,int page,int pageSize) {
+        DBUtil db = new DBUtil();//数据库连接
+        List<Article> list = new ArrayList<>();
+        try {
+            db.getConnection();
+
+            String sql = "SELECT * FROM article WHERE is_delete=? ";
+
+            if (type==FINDBYUSERID){
+                sql = "SELECT * FROM article WHERE user_id=? AND is_delete=? ";
+            }
+            if (page>0&&pageSize>0){
+                sql+="LIMIT ? OFFSET ?";
+            }
+            db.preStmt = db.conn.prepareStatement(sql);
+            if (type==FINDBYUSERID) {
+                db.preStmt.setInt(1, key);
+                db.preStmt.setInt(2,isDelete);
+                if (page>0&&pageSize>0){
+                    db.preStmt.setInt(3,pageSize);
+                    db.preStmt.setInt(4,(page - 1) * pageSize);
+                }
+            }else {
+                db.preStmt.setByte(1,isDelete);
+                if (page>0&&pageSize>0){
+                    db.preStmt.setInt(2,pageSize);
+                    db.preStmt.setInt(3,(page - 1) * pageSize);
+                }
+            }
+
+            db.rs = db.preStmt.executeQuery();
+            list = getList(db,list);
+            return list;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            db.close();
+        }
+        return list;
+    }
+
+    /**
+     * 只根据isDraft进行查询
+     * @param key
+     * @param type
+     * @param isDraft
+     * @return
+     */
+    public static List<Article> queryByDraft(int key,int type,byte isDraft,int page,int pageSize) {
+        DBUtil db = new DBUtil();//数据库连接
+        List<Article> list = new ArrayList<>();
+        try {
+            db.getConnection();
+
+            String sql = "SELECT * FROM article WHERE is_draft=? AND is_delete=0 ";
+
+            if (type==FINDBYUSERID){
+                sql = "SELECT * FROM article WHERE user_id=? AND is_draft=? AND is_delete=0 ";
+            }
+            if (page>0&&pageSize>0){
+                sql+="LIMIT ? OFFSET ?";
+            }
+            db.preStmt = db.conn.prepareStatement(sql);
+            if (type==FINDBYUSERID) {
+                db.preStmt.setInt(1, key);
+                db.preStmt.setInt(2,isDraft);
+                if (page>0&&pageSize>0){
+                    db.preStmt.setInt(3,pageSize);
+                    db.preStmt.setInt(4,(page - 1) * pageSize);
+                }
+            }else {
+                db.preStmt.setByte(1,isDraft);
+                if (page>0&&pageSize>0){
+                    db.preStmt.setInt(2,pageSize);
+                    db.preStmt.setInt(3,(page - 1) * pageSize);
+                }
+            }
+
+            db.rs = db.preStmt.executeQuery();
+            list = getList(db,list);
+            return list;
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            db.close();
+        }
+        return list;
+    }
+
+    public static Article queryById(int key) {
+        DBUtil db = new DBUtil();//数据库连接
+        List<Article> list = new ArrayList<>();
+        try {
+            db.getConnection();
+
+            String sql = "SELECT * FROM article WHERE id=?";
+
+
+            db.preStmt = db.conn.prepareStatement(sql);
+
+            db.preStmt.setInt(1,key);
+
+            db.rs = db.preStmt.executeQuery();
+            list = getList(db,list);
+            return list.get(0);
+        }catch (Exception e){
+            e.printStackTrace();
+        }finally {
+            db.close();
+        }
+        return null;
     }
 
     private static List<Article> getList(DBUtil db,List<Article> list) throws SQLException {

@@ -26,10 +26,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
+import javax.xml.crypto.dsig.keyinfo.PGPData;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.Dictionary;
 import java.util.List;
 
 @WebServlet(name = "adminArticles", value = "/admin/articles/*")
@@ -50,6 +52,8 @@ public class AdminArticles extends HttpServlet {
         isDraft = 0;
         isDelete = 0;
         userId = 0;
+        count = 0;
+        articleId = 0;
         // 构建响应数据对象
         Result result = new Result<>();
         List<Article> articles = new ArrayList<>();
@@ -70,20 +74,21 @@ public class AdminArticles extends HttpServlet {
                 }else if (pathParts[0].equals("images")){
                     result = articlesImages(request,response);
                 }else {
-
+                    //获取指定文章信息
                     articleId = Integer.parseInt(pathInfo);
-                    articles = ArticleDao.query(articleId,ArticleDao.FINDBYARTID,isDelete,isDraft);
-                    if (articles.size() == 0) {
+                    Article article = ArticleDao.queryById(articleId);
+                    if (articles == null) {
                         //文章不存在
                         CODE = ErrCode.ERROR_ART_NOT_EXIST.getCode();
                         result.failure(CODE, ErrMessage.getMsg(CODE));
                     } else {
-                        result.success(articles.get(0));
+                        result.success(article);
                     }
                 }
             }else {//获取所有文章
                 CURRENT = Integer.parseInt(request.getParameter("current"));
                 pageSize = Integer.parseInt(request.getParameter("size"));
+                int method = 0;
                 if (request.getParameter("userId")!=null){
                     userId = Integer.parseInt(request.getParameter("userId"));
                 }
@@ -94,18 +99,47 @@ public class AdminArticles extends HttpServlet {
                     isDraft = Byte.parseByte(request.getParameter("isDraft"));
                 }
 
+                if (isDelete==1){
+                    //查询删除文章
+                    method = ArticleDao.FINDDELETE;
+                }else if (isDelete==0&&isDraft==0){
+                    //查询已发布文章
+                    method = ArticleDao.FINDPUBLISH;
+                }else if (isDelete==0&&isDraft==1){
+                    //查询草稿文章
+                    method = ArticleDao.FINDDRAFT;
+                }
+
                 UserInfo userInfo = UserInfoDao.query(userId);
                 if (userInfo==null){
                     CODE = ErrCode.ERROR_USER_NOT_EXIST.getCode();
                     result.failure(CODE,ErrMessage.getMsg(CODE));
                 }else if (userInfo.getUserRole().equals("管理员")){
                     //管理员查询所有文章
-                    articles = ArticleDao.query(0, ArticleDao.FINDALL, isDelete, isDraft, CURRENT, pageSize);
-                    count = ArticleDao.query(0, ArticleDao.FINDALL, isDelete, isDraft).size();
+                    if (method==ArticleDao.FINDDELETE){
+                        articles = ArticleDao.queryByDelete(0,ArticleDao.FINDALL,isDelete,CURRENT,pageSize);
+                        count = ArticleDao.queryByDelete(0,ArticleDao.FINDALL,isDelete,-1,-1).size();
+                    }else if (method==ArticleDao.FINDPUBLISH){
+                        articles = ArticleDao.query(0, ArticleDao.FINDALL, isDelete, isDraft, CURRENT, pageSize);
+                        count = ArticleDao.query(0, ArticleDao.FINDALL, isDelete, isDraft).size();
+                    }else if (method==ArticleDao.FINDDRAFT){
+                        articles = ArticleDao.queryByDraft(0,ArticleDao.FINDALL,isDraft,CURRENT,pageSize);
+                        count = ArticleDao.queryByDraft(0,ArticleDao.FINDALL,isDraft,-1,-1).size();
+                    }
+
                 }else if (userInfo.getUserRole().equals("普通用户")){
                     //普通用户只能查询自己的文章
-                    articles = ArticleDao.query(userId, ArticleDao.FINDBYUSERID,isDelete,isDraft,CURRENT,pageSize);
-                    count = ArticleDao.query(userId,ArticleDao.FINDBYUSERID,isDelete,isDraft).size();
+                    if (method==ArticleDao.FINDDELETE){
+                        articles = ArticleDao.queryByDelete(userId,ArticleDao.FINDBYUSERID,isDelete,CURRENT,pageSize);
+                        count = ArticleDao.queryByDelete(userId,ArticleDao.FINDBYUSERID,isDelete,-1,-1).size();
+                    }else if (method==ArticleDao.FINDPUBLISH){
+                        articles = ArticleDao.query(userId, ArticleDao.FINDBYUSERID,isDelete,isDraft,CURRENT,pageSize);
+                        count = ArticleDao.query(userId,ArticleDao.FINDBYUSERID,isDelete,isDraft).size();
+                    }else if (method==ArticleDao.FINDDRAFT){
+                        articles = ArticleDao.queryByDraft(userId,ArticleDao.FINDBYUSERID,isDraft,CURRENT, pageSize);
+                        count = ArticleDao.queryByDraft(userId,ArticleDao.FINDBYUSERID,isDraft,-1,-1).size();
+                    }
+
                 }
                 if (articles.isEmpty()) {
                     //文章列表为空
@@ -129,6 +163,12 @@ public class AdminArticles extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
+
+        isDraft = 0;
+        isDelete = 0;
+        userId = 0;
+        count = 0;
+        articleId = 0;
 
         // 构建响应数据对象
         Result result = new Result<>();
@@ -161,10 +201,10 @@ public class AdminArticles extends HttpServlet {
                     // 使用JSON对象中的数据
                     // 将json绑定到AdminArticlesPOSTReq对象
                     AdminArticlesPOSTReq postReq = JSON.toJavaObject(json, AdminArticlesPOSTReq.class);
-                    List<Article> articles = ArticleDao.query(postReq.getId(), ArticleDao.FINDBYARTID,isDelete,isDraft);
+                    Article article = ArticleDao.queryById(postReq.getId());
                     Timestamp now = TimeUtil.getTimeStamp();
-                    if (articles.isEmpty()) {//文章不存在就插入数据
-                        Article article = new Article(now);
+                    if (article==null) {//文章不存在就插入数据
+                        article = new Article(now);
 
                         if (postReq.getArticleCover() == null || postReq.getArticleCover().isEmpty()) {
                             article.setArticleCover("https://github.com/xszhangxiaocuo/picBed/blob/master/picBed/lycoris.png?raw=true");
@@ -205,7 +245,6 @@ public class AdminArticles extends HttpServlet {
                             result.failure(CODE, ErrMessage.getMsg(CODE));
                         }
                     } else {//文章已经存在就更新数据
-                        Article article = articles.get(0);
                         article.setId(postReq.getId());
                         article.setUserId(postReq.getUserId());
                         if (postReq.getArticleCover() == null || postReq.getArticleCover().isEmpty()) {
@@ -292,23 +331,33 @@ public class AdminArticles extends HttpServlet {
         // 构建响应数据对象
         Result result = new Result<>();
 
+        isDelete = 0;
+        isDraft = 0;
+        userId = 0;
         if (json!=null) {
             // 使用JSON对象中的数据
             // 将json绑定到AdminArticlePUTReq对象
             AdminPUTReq putReq = JSON.toJavaObject(json, AdminPUTReq.class);
             int[] idList = putReq.getIdList();
-
-            for (Integer i : idList) {
-                CODE = ArticleDao.delete(i).getCode();
-                if (CODE!=ErrCode.OK.getCode()){
-                    //删除失败
-                    break;
+            isDelete = putReq.getIsDelete();
+            isDraft = putReq.getIsDraft();
+            userId = putReq.getUserId();
+            if (isDelete==0&&isDraft==0) {
+                //恢复操作
+                for (Integer i : idList) {
+                    Article article = ArticleDao.queryById(i);
+                    article.setIsDelete(isDelete);
+                    CODE = ArticleDao.update(article).getCode();
+                    if (CODE != ErrCode.OK.getCode()) {
+                        //恢复失败
+                        break;
+                    }
                 }
-            }
-            if (CODE==ErrCode.OK.getCode()){
-                result.success();
-            }else {
-                result.failure(CODE,ErrMessage.getMsg(CODE));
+                if (CODE == ErrCode.OK.getCode()) {
+                    result.success();
+                } else {
+                    result.failure(CODE, ErrMessage.getMsg(CODE));
+                }
             }
         }
         JsonUtil.returnJSON(response,JsonUtil.beanToJson(result));
@@ -324,7 +373,6 @@ public class AdminArticles extends HttpServlet {
         Result result = new Result();
 
         AdminArticlesOptionsVO optionsVO = new AdminArticlesOptionsVO();
-
         if (request.getParameter("userId")!=null){
             userId = Integer.parseInt(request.getParameter("userId"));
         }
@@ -344,7 +392,6 @@ public class AdminArticles extends HttpServlet {
 
             result.success(optionsVO);
         }
-
         return result;
     }
 
