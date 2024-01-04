@@ -51,7 +51,7 @@ public class CommentDao {
         } finally {
             db.close();
         }
-        return ErrCode.FAIL;
+        return ErrCode.ERROR_DB_OPE;
     }
 
     /**
@@ -78,7 +78,7 @@ public class CommentDao {
         } finally {
             db.close();
         }
-        return ErrCode.FAIL;
+        return ErrCode.ERROR_DB_OPE;
     }
 
     /**
@@ -113,7 +113,7 @@ public class CommentDao {
         } finally {
             db.close();
         }
-        return ErrCode.FAIL;
+        return ErrCode.ERROR_DB_OPE;
     }
 
     public static List<Comment> query(int key, int type,byte isDelete) {

@@ -66,14 +66,22 @@ public class Comments extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
+        String[] keyword = {"妈的","操","日","逼","fuck"};
+
         Result result = new Result();
         JSONObject json = JsonUtil.parseToJson(request);
         try {
                 CommentsReq commentsReq = JSON.toJavaObject(json, CommentsReq.class);
                 Comment comment = new Comment(TimeUtil.getTimeStamp());
+                String content = commentsReq.getCommentContent();
+            for (String key : keyword) {
+                if (content.contains(key)){
+                    content = content.replace(key,"**");
+                }
+            }
                 comment.setUserId(commentsReq.getUserID());
                 comment.setArrticleId(commentsReq.getArticleId());
-                comment.setCommentContent(commentsReq.getCommentContent());
+                comment.setCommentContent(content);
                 comment.setIsDelete((byte) 0);
 
                 CODE = CommentDao.insert(comment).getCode();

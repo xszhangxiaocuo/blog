@@ -24,13 +24,13 @@ public class ErrMessage {
         codeMsg.put(ErrCode.ERROR_USER_NO_RIGHT.getCode(), "该用户无权限");
         codeMsg.put(ErrCode.ERROR_OLD_PASSWORD.getCode(), "旧密码不正确");
         codeMsg.put(ErrCode.ERROR_EMAIL_SEND.getCode(), "邮件发送失败");
-        codeMsg.put(ErrCode.ERROR_EMAIL_HAS_SEND.getCode(), "已向该邮箱发送验证码（有效期 15 分钟），请检查回收站");
         codeMsg.put(ErrCode.ERROR_VERIFICATION_CODE.getCode(), "验证码错误");
 
         codeMsg.put(ErrCode.ERROR_TOKEN_NOT_EXIST.getCode(), "TOKEN 不存在，请重新登陆");
         codeMsg.put(ErrCode.ERROR_TOKEN_RUNTIME.getCode(), "TOKEN 已过期，请重新登陆");
         codeMsg.put(ErrCode.ERROR_TOKEN_WRONG.getCode(), "TOKEN 不正确，请重新登陆");
         codeMsg.put(ErrCode.ERROR_TOKEN_TYPE_WRONG.getCode(), "TOKEN 格式错误，请重新登陆");
+        codeMsg.put(ErrCode.ERROR_TOKEN_PARSE.getCode(), "TOKEN 解析失败");
         codeMsg.put(ErrCode.ERROR_TOKEN_CREATE.getCode(), "TOKEN 生成失败");
         codeMsg.put(ErrCode.ERROR_PERMI_DENIED.getCode(), "权限不足");
         codeMsg.put(ErrCode.FORCE_OFFLINE.getCode(), "您已被强制下线");
@@ -52,18 +52,7 @@ public class ErrMessage {
 
         codeMsg.put(ErrCode.ERROR_COMMENT_NOT_EXIST.getCode(), "评论不存在");
 
-        codeMsg.put(ErrCode.ERROR_RESOURCE_NAME_EXIST.getCode(), "该资源名已经存在");
-        codeMsg.put(ErrCode.ERROR_RESOURCE_NOT_EXIST.getCode(), "该资源不存在");
-        codeMsg.put(ErrCode.ERROR_RESOURCE_USED_BY_ROLE.getCode(), "该资源正在被角色使用，无法删除");
-        codeMsg.put(ErrCode.ERROR_RESOURCE_HAS_CHILDREN.getCode(), "该资源下存在子资源，无法删除");
-        codeMsg.put(ErrCode.ERROR_MENU_NAME_EXIST.getCode(), "该菜单名已经存在");
-        codeMsg.put(ErrCode.ERROR_MENU_NOT_EXIST.getCode(), "该菜单不存在");
-        codeMsg.put(ErrCode.ERROR_MENU_USED_BY_ROLE.getCode(), "该菜单正在被角色使用，无法删除");
-        codeMsg.put(ErrCode.ERROR_MENU_HAS_CHILDREN.getCode(), "该菜单下存在子菜单，无法删除");
-        codeMsg.put(ErrCode.ERROR_ROLE_NAME_EXIST.getCode(), "该角色名已经存在");
-        codeMsg.put(ErrCode.ERROR_ROLE_NOT_EXIST.getCode(), "该角色不存在");
 
-        codeMsg.put(ErrCode.ERROR_PAGE_NAME_EXIST.getCode(), "该页面名称已经存在");
     }
 
     public static String getMsg(int code) {

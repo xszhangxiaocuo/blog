@@ -47,7 +47,7 @@ public class UserAuthDao {
         }finally {
             db.close();
         }
-        return ErrCode.FAIL;
+        return ErrCode.ERROR_DB_OPE;
     }
 
     /**
@@ -73,7 +73,7 @@ public class UserAuthDao {
         }finally {
             db.close();
         }
-        return ErrCode.FAIL;
+        return ErrCode.ERROR_DB_OPE;
     }
 
     /**
@@ -110,7 +110,7 @@ public class UserAuthDao {
         }finally {
             db.close();
         }
-        return ErrCode.FAIL;
+        return ErrCode.ERROR_DB_OPE;
     }
 
     /**

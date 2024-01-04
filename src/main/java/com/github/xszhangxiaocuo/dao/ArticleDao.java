@@ -56,7 +56,7 @@ public class ArticleDao {
         }finally {
             db.close();
         }
-        return ErrCode.FAIL;
+        return ErrCode.ERROR_DB_OPE;
     }
 
     /**
@@ -82,7 +82,7 @@ public class ArticleDao {
         }finally {
             db.close();
         }
-        return ErrCode.FAIL;
+        return ErrCode.ERROR_DB_OPE;
     }
 
     /**
@@ -121,7 +121,7 @@ public class ArticleDao {
         }finally {
             db.close();
         }
-        return ErrCode.FAIL;
+        return ErrCode.ERROR_DB_OPE;
     }
 
     /**

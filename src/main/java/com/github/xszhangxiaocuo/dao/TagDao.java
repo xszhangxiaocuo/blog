@@ -45,7 +45,7 @@ public class TagDao {
         } finally {
             db.close();
         }
-        return ErrCode.FAIL;
+        return ErrCode.ERROR_DB_OPE;
     }
 
     /**
@@ -72,7 +72,7 @@ public class TagDao {
         } finally {
             db.close();
         }
-        return ErrCode.FAIL;
+        return ErrCode.ERROR_DB_OPE;
     }
 
     /**
@@ -104,7 +104,7 @@ public class TagDao {
         } finally {
             db.close();
         }
-        return ErrCode.FAIL;
+        return ErrCode.ERROR_DB_OPE;
     }
 
     /**

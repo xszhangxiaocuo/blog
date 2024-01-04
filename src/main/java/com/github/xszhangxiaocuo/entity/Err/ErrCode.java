@@ -38,6 +38,7 @@ public enum ErrCode {
     ERROR_PERMI_DENIED(1206),
     FORCE_OFFLINE(1207),
     LOGOUT(1208),
+    ERROR_TOKEN_PARSE(1209),
     /**
      * code= 2000... 文章模块的错误
      */
@@ -62,24 +63,7 @@ public enum ErrCode {
      * code=50... 评论模块的错误
      */
     ERROR_COMMENT_NOT_EXIST(5001),
-    ERROR_COMMENT_IS_NULL(5002),
-    /**
-     * code=60... 权限模块的错误
-     */
-    ERROR_RESOURCE_NAME_EXIST(6001),
-    ERROR_RESOURCE_NOT_EXIST(6002),
-    ERROR_RESOURCE_USED_BY_ROLE(6003),
-    ERROR_RESOURCE_HAS_CHILDREN(6004),
-    ERROR_MENU_NAME_EXIST(6005),
-    ERROR_MENU_NOT_EXIST(6006),
-    ERROR_MENU_USED_BY_ROLE(6007),
-    ERROR_MENU_HAS_CHILDREN(6008),
-    ERROR_ROLE_NAME_EXIST(60010),
-    ERROR_ROLE_NOT_EXIST(60011),
-    /**
-     * code=70... 页面模块的错误
-     */
-    ERROR_PAGE_NAME_EXIST(7001);
+    ERROR_COMMENT_IS_NULL(5002);
 
     private final int code;
 

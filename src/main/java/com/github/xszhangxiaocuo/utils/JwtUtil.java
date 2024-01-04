@@ -77,8 +77,8 @@ public class JwtUtil {
     /***
      * 获取Claims
      */
-    public static Claims getClaims(String token, long allowedClockSkewSeconds) {
-        if (token.isEmpty()) {
+    public static Claims getClaims(String token, long allowedClockSkewSeconds)throws ExpiredJwtException, SignatureException, IllegalArgumentException, Exception {
+        if (token==null||token.isEmpty()) {
             return null;
         }
 
@@ -88,7 +88,7 @@ public class JwtUtil {
     /***
      *  解析jwt
      */
-    public static Claims parseJwt(String jsonWebToken, long allowedClockSkewSeconds) {
+    public static Claims parseJwt(String jsonWebToken, long allowedClockSkewSeconds) throws ExpiredJwtException, SignatureException, IllegalArgumentException, Exception{
         try {
             //JWT解析器
             return Jwts.parser()
@@ -101,17 +101,20 @@ public class JwtUtil {
             //过期
             //抛异常 让系统捕获到返回到前端
             logger.severe("token过期"+ex);
+            throw ex;
         } catch (SignatureException ex) {
             //签名错误
             logger.severe("签名错误"+ ex);
+            throw ex;
         } catch (IllegalArgumentException ex) {
             //token 为空
             logger.severe("token为空"+ex);
+            throw ex;
         } catch (Exception e) {
             //token异常
             logger.severe("解析token异常"+e);
+            throw e;
         }
-        return null;
     }
 
 }
